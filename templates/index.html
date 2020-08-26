@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Frontend Dev Course</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/static/images/logo.svg" alt="2ndDecimal logo" class="logo">
+
+            <nav>
+                <a href="#" class="hide-desktop">
+                    <img src="/static/images/ham.svg" alt="toggle menu" class="menu" id="menu">
+                </a>
+
+                <ul class="show-desktop hide-mobile" id="nav">
+                    <li id="exit" class="exit-btn hide-desktop">
+                        <img src="/static/images/exit.svg" alt="exit menu">
+                    </li>
+                    <li><a href="#section1">home</a></li>
+                    <li><a href="#section2">services</a></li>
+                    <li><a href="#section3">about</a></li>
+                    <li><a href="#section4">contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="section1">
+            <img src="/static/images/server3.png" alt="server graphic" class="server">
+            
+            <div class="row">
+                <div class="column">
+                    <button type="submit" class="btn btn-outline-primary" >Student</button>
+                </div >
+                <div class="column">
+                    <button type="button" class="btn btn-outline-primary">Teacher</button>
+                </div >
+                <div class="column">
+                    <button type="button" class="btn btn-outline-primary">Staff</button>
+                </div >
+            </div>
+
+        </section>
+    </div>
+    <img src="/static/images/scroll.svg" id="section2" alt="scroll down" class="scroll hide-mobile show-desktop">
+    <div class="blue-container" >
+        <div class="container">
+            <ul>
+                <li>
+                    <img src="/static/images/icon-1.svg" alt="Calendar icon">
+                    <p>You can enter any type of details linked to the upper image</p>
+                </li>
+                <li>
+                    <img src="/static/images/icon-2.svg" alt="Calendar icon">
+                    <p>You can enter any type of details linked to the upper image</p>
+                </li>
+                <li>
+                    <img src="/static/images/icon-3.svg" alt="Calendar icon">
+                    <p>You can enter any type of details linked to the upper image</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="gray-container" id="section3">
+        <div class="container">
+            <ul class="images">
+                <li>
+                    <figure>
+                        <img src="/static/images/chaitanya.jpg" class="round-image" alt="User testimonial picture">
+                        <!-- <blockquote>Hey there congo for making your first website. Best of luck. Keep going.</blockquote> -->
+                        <figcaption>- Chaitanya Kaushal</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="/static/images/bibek.jpg" class="round-image" alt="User testimonial picture">
+                        <!-- <blockquote>Hey there congo for making your first website. Best of luck. Keep going.</blockquote> -->
+                        <figcaption>- Bibekpreet Singh</figcaption>
+                    </figure>
+                </li>
+            </ul>
+            <ul class="images">
+                <li>
+                    <figure>
+                        <img src="/static/images/harshit.jpg" class="round-image" alt="User testimonial picture">
+                        <!-- <blockquote>Hey there congo for making your first website. Best of luck. Keep going.</blockquote> -->
+                        <figcaption>- Harshit Bansal</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="/static/images/ajat3.jpg" class="round-image" alt="User testimonial picture">
+                        <!-- <blockquote>Hey there congo for making your first website. Best of luck. Keep going.</blockquote> -->
+                        <figcaption>- Ajat Suneja</figcaption>
+                    </figure>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer id="section4">
+        <div class="footer-container">
+            <div class="container">
+                <a href="#">
+                    <img src="/static/images/logo-white.svg" class="logo" alt="logo">
+                </a>
+                <p class="address">Melrose Place, 90210<br>USA</p>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+    
+        var menu = document.getElementById('menu');
+        var nav = document.getElementById('nav');
+        var exit = document.getElementById('exit');
+
+        menu.addEventListener('click', function(e) {
+            nav.classList.toggle('hide-mobile');
+            e.preventDefault();
+        });
+
+        exit.addEventListener('click', function(e) {
+            nav.classList.add('hide-mobile');
+            e.preventDefault();
+        });
+
+    </script>
+
+</body>
+</html>
