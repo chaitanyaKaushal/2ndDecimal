@@ -8,6 +8,63 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
+* {
+  box-sizing: border-box;
+}
+ .row{
+display:flex;
+flex-wrap:wrap
+}
+.student,.teacher,.staff{
+flex:30%;
+padding:center;
+text-align:center;
+}
+
+@media screen and (max-width: 542px) {
+  .student,.teacher,.staff {
+    flex:75%;
+padding:center; 
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .row{
+    flex-direction: column;
+padding:center;
+.student{border-radius:0px 0px 0px 0px;
+}       
+  }
+}
+.student,.teacher,.staff{
+padding:center;
+font-size: 1em;
+background-color: #000000;
+height: 63px;
+transition: transform .3s;
+border-color:#ffffff;
+}
+.student{border-radius:0px 10px 10px 55px;
+}
+.staff{border-radius:10px 55px 0px 10px;
+}
+.student a,.teacher a,.staff a{
+font-family:  sans-serif;
+color:#ffffff;
+text-decoration: none;
+font-size:  2.5em ;
+font-weight: bold;
+text-align:center;
+}
+.student:hover,.teacher:hover,.staff:hover{
+transform: scale(1.1);
+background-color:  #00ffff;
+text-color:#000000;
+box-shadow: 10px 10px 10px #000000,10px 10px 10px #00ffff,0px 0px 10px #000000;
+}
+.student1:hover{
+border-radius:3px 3px 3px 30px;
+}
 
 p , blockquote {
     font-size: .9em;
