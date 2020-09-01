@@ -1,0 +1,56 @@
+body  
+{  
+    margin: 0;  
+    padding: 0;  
+    font-family: 'Montserrat', sans-serif;
+    background-image: url('laptop.webp');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}  
+.login{  
+        width: 350px;  
+        overflow: hidden;  
+        margin: auto;  
+        margin: 20 0 0 450px;  
+        padding: 80px;  
+        background:rgba(76, 175, 80, 0.3);  
+        border-radius: 15px ;           
+} 
+h1{  
+    text-align: center;  
+    color: blue;  
+    padding: 20px;  
+}    
+label{  
+    color: yellowgreen;  
+    font-size: 17px;  
+}  
+#Uname{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+}  
+#Pass{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+      
+}  
+#log{  
+    text-align: center; 
+    width: 100px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: blue;  
+}  
+p{
+    color: khaki;  
+    font-size: 17px;
+}

@@ -29,12 +29,14 @@ padding:center;
 }
 
 @media screen and (max-width: 440px) {
-  .row{
+.row{
     flex-direction: column;
-padding:center;
-.student{border-radius:0px 0px 0px 0px;
-}       
-  }
+    padding:center;
+}
+.student{
+    border-radius:0px 0px 0px 0px;
+}   
+    
 }
 .student,.teacher,.staff{
 padding:center;
