@@ -463,19 +463,19 @@ nav ul li a:hover {
         background-color: inherit;
     }
 
-    /* .scroll {
+     .scroll {
         width: 30px;
         animation: move 1s infinite alternate;
-    } */
+    } 
 
-    /* @keyframes move {
+     @keyframes move {
         from {
             transform: translateY(0px);
         }
         to {
             transform: translateY(20px);
         }
-    } */
+    } 
 
 }
 
