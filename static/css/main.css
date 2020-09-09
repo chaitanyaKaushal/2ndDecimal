@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600');
-
 html{
     scroll-behavior: smooth;
 }
@@ -38,31 +37,42 @@ padding:center;
 }   
     
 }
-.student,.teacher,.staff{
-padding:center;
-font-size: 1em;
-background-color: #000000;
-height: 63px;
-transition: transform .3s;
-border-color:#ffffff;
+
+.student, .teacher, .staff {
+    padding: center;
+    font-size: 1em;
+    background-color: #000000;
+    height: 63px;
+    transition: transform .3s;
+    border-color: #ffffff;
+    border: hidden;
+    cursor: pointer;
+    outline: none;
 }
-.student{border-radius:0px 10px 10px 55px;
+.student {
+    border-radius: 0px 0px 0px 55px;
+    
 }
-.staff{border-radius:10px 55px 0px 10px;
+.staff {
+    border-radius: 0px 55px 0px 0px;
+    
 }
-.student a,.teacher a,.staff a{
-font-family:  sans-serif;
-color:#ffffff;
-text-decoration: none;
-font-size:  2.5em ;
-font-weight: bold;
-text-align:center;
-}
-.student:hover,.teacher:hover,.staff:hover{
-transform: scale(1.1);
-background-color:  #00ffff;
-text-color:#000000;
-box-shadow: 10px 10px 10px #000000,10px 10px 10px #00ffff,0px 0px 10px #000000;
+.student a, .teacher a, .staff a {
+        font-family: sans-serif;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 2.5em;
+        font-weight: bold;
+        text-align: center;
+ }
+.student:hover, .teacher:hover, .staff:hover {
+        transform: scale(1.1);
+        background-color: #00ffff;
+        text-color: #000000;
+        box-shadow: 10px 10px 10px #000000,10px 10px 10px #00ffff,0px 0px 10px #000000;
+        border: hidden;
+        cursor: pointer;
+        outline: none;
 }
 .student1:hover{
 border-radius:3px 3px 3px 30px;
@@ -516,3 +526,5 @@ nav ul li a:hover {
     }
 
 }
+
+ 
