@@ -4,29 +4,31 @@
     <title>Login Form</title>    
     <link rel="stylesheet" type="text/css" href="static/css/login_css.css">    
 </head>    
-<body> 
+<body>
+    <br><br>
     <!--background-color:whitesmoke; -->
-    <h1>2ndDecimal</h1>
-    <div class="login">   
-        <form id="login"  >   
-    <h1>Student Log In</h1><br>    
+    <div class="login">
+        <form id="login">
+            <div class="h1">Student Login</div>
+            <br> <br>
             <label>
-             <b>User Name </b>    
+                <b>Username </b>
             </label>
-            <br> <br> 
+            <br> <br>
+            <input type="text" name="Uname" id="Uname" placeholder="Enter Username">
+            <br> <br>
+            <label>
+                <b>Password </b>
+            </label>
+            <br><br>
+            <input type="Password" name="Pass" id="Pass" placeholder="Enter Password">
+            <br><br>
+            <br>
+            <input type="button" name="log" id="log" value="Login">
 
-            <input type="text" name="Uname" id="Uname" placeholder="Username">    
-            <br><br>   
+            <!-- <p>For Staff Log In <a href="#">Click here</a>  </p> -->
+        </form>
 
-            <input type="Password" name="Pass" id="Pass" placeholder="Password">    
-            <br><br> 
-           
-            <input type="button" name="log" id="log" value="Log In">       
-            <br><br>    
-            
-            <p>For Staff Log In <a href="#">Click here</a>  </p> 
-        </form>  
-  
-    </div>    
+    </div>
 </body>    
 </html> 

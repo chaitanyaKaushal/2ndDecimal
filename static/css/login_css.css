@@ -1,56 +1,78 @@
-body  
-{  
-    margin: 0;  
-    padding: 0;  
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    padding: 0;
     font-family: 'Montserrat', sans-serif;
-    background-image: url('/static/images/laptop.webp');
+    background-image: url('/static/images/background_image_for_login_form.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-}  
-.login{  
-        width: 350px;  
-        overflow: hidden;  
-        margin: auto;  
-        margin: 20 0 0 450px;  
-        padding: 80px;  
-        background:rgba(76, 175, 80, 0.3);  
-        border-radius: 15px ;           
+}
+.login {
+    height:50%;
+    width: 250px;
+    overflow: hidden;
+    margin: auto;
+    margin: 20 0 0 450px;
+    padding: 80px;
+    background-color: #000000;
+    opacity: 1;
+    border-radius: 15px;
 } 
-h1{  
-    text-align: center;  
-    color: blue;  
-    padding: 20px;  
-}    
+.h1{  
+    text-align: center; 
+    color: #ffffff;  
+    padding: 20px;
+    font-size:xx-large;
+}
+
 label{  
-    color: yellowgreen;  
+    color: #ffffff;  
     font-size: 17px;  
-}  
-#Uname{  
-    width: 300px;  
-    height: 30px;  
-    border: none;  
-    border-radius: 3px;  
-    padding-left: 8px;  
-}  
-#Pass{  
-    width: 300px;  
-    height: 30px;  
-    border: none;  
-    border-radius: 3px;  
-    padding-left: 8px;  
-      
-}  
+}
+#Uname {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    background-color: #000000;
+    opacity: 1;
+    color:aliceblue;
+    padding-left: 8px;
+}
+#Pass {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+    background-color: #000000;
+    opacity: 1;
+    color: aliceblue;
+}   
 #log{  
     text-align: center; 
-    width: 100px;  
-    height: 30px;  
-    border: none;  
-    border-radius: 17px;  
-    padding-left: 7px;  
-    color: blue;  
-}  
-p{
-    color: khaki;  
-    font-size: 17px;
+    width: 300px;  
+    height: 45px;  
+    border: none;
+    border-radius: 22px;  
+    padding-left: 7px;
+    color:peachpuff;
+    font-size:x-large;
+    font-stretch:ultra-expanded;
+    background-color: #ff0000;  
 }
+    #log:hover {
+        transform: scale(1.1);
+        background-color: #ff0000;
+        text-color: #ffffff;
+        border: hidden;
+        cursor: pointer;
+        outline: none;
+        border-radius: 25px;
+        box-shadow: 1px 1px 1px #ff0000,1px 1px 1px #ff0000,1px 1px 1px #ff0000;
+    }
+
+
