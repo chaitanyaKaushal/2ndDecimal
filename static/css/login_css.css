@@ -16,7 +16,7 @@ body {
     overflow: hidden;
     margin-right: auto;
     margin-left: 200px;
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 80px;
     background-color: transparent;
     opacity: 1;
@@ -83,4 +83,10 @@ label{
     box-shadow: 1px 1px 1px #ff0000,1px 1px 1px #ff0000,1px 1px 1px #ff0000;
 }
 
-
+.one{
+    color: white
+}
+a{
+    text-decoration-line: none;
+    color: white
+}

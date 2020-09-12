@@ -27,6 +27,14 @@ db = SQL("sqlite:///decimal.db")
 def home():
     return render_template("index.html")
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
+@app.route("/studentlogin")
+def studentlogin():
+    return render_template("studentlogin.html")
+
+@app.route("/teacherlogin")
+def teacherlogin():
+    return render_template("teacherlogin.html")
+
+@app.route("/stafflogin")
+def stafflogin():
+    return render_template("stafflogin.html")
