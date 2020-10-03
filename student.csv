@@ -1,0 +1,11 @@
+id,roll_no,name,email,semester,year,branch,batch,passwd
+su1,1,Anil,abc@gmail.com,5,3,COE,13,12345
+su2,2,Ram,qw@as.com,5,3,COE,25,12345
+su3,3,Kent,fg@qw.com,5,3,COE,11,12345
+su4,4,Brent,we@qw.com,5,3,COE,1,12345
+su5,5,Neeti,er@gh.com,5,3,COE,32,12345
+su6,6,Lit,rgf@mn.com,5,3,ENC,1,12345
+su7,7,Polar,dfd@sdd.com,5,3,ENC,2,12345
+su8,8,Qwerty,ewfe@erfe.com,5,3,ENC,3,12345
+su9,9,Raju,wefew@sef.com,5,3,ENC,5,12345
+su10,10,Ajay,uju@th.com,5,3,ENC,4,12345

@@ -3,6 +3,7 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from tempfile import mkdtemp
 from cs50 import SQL
+from helper import staff_login, student_login, teacher_login
 
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
