@@ -25,13 +25,29 @@ app.debug = True
 db = SQL("sqlite:///decimal.db")
 
 @app.route("/")
-def home():
+def index():
     return render_template("index.html")
 
-@app.route("/studentlogin")
-def studentlogin():
-    return render_template("studentlogin.html")
+@app.route("/home")
+def home():
+    details = db.execute("select * from student where id = :id", id = session["uid"])
+    return render_template("home.html", name = details[0]["name"], batch = details[0]["batch"], id = details[0]["roll_no"])
 
+@app.route("/studentlogin", methods = ["GET", "POST"])
+def studentlogin():
+    if request.method == "GET":
+        return render_template("studentlogin.html")
+    else:
+        name = request.form.get("uname")
+        passw = request.form.get("pass")
+        apass = db.execute("Select * from student where roll_no = :roll", roll = name)
+        if len(apass) == 0:
+            return render_template("studentlogin.html", error = "User doesnot exist")
+        if not check_password_hash(apass[0]["passwd"], passw):
+            return render_template("studentlogin.html", error = "Invalid details")
+        session["uid"] = apass[0]["id"]
+        return redirect("/home")
+        
 @app.route("/teacherlogin")
 def teacherlogin():
     return render_template("teacherlogin.html")

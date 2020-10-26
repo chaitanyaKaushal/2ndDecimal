@@ -8,23 +8,24 @@
     <br><br>
     <!--background-color:whitesmoke; -->
     <div class="login">
-        <form id="login">
+        <form id="login" method="post">
             <div class="h1">{%block login %} {% endblock %}</div>
             <br> <br>
+            <p class="error">{{error}}</p>
             <label>
-                <b>Username </b>
+                <b>{% block uname1 %}{% endblock %}</b>
             </label>
             <br> <br>
-            <input type="text" name="Uname" id="Uname" placeholder="Enter Username">
+            <input type="text" name="uname" id="Uname" placeholder="Enter {% block uname2 %}{% endblock %}" required>
             <br> <br>
             <label>
                 <b>Password </b>
             </label>
             <br><br>
-            <input type="Password" name="Pass" id="Pass" placeholder="Enter Password">
+            <input type="Password" name="pass" id="Pass" placeholder="Enter Password" required>
             <br><br>
             <br>
-            <input type="button" name="log" id="log" value="Login">
+            <input type="submit" name="log"  id="log" value="Login">
 
             <p class="one">For {% block one %} {%endblock%} Log In <a href={% block onelink %}{% endblock %}>Click here</a>  </p>
             <p class="one">For {% block two %} {%endblock%} Log In <a href={% block twolink %}{% endblock %}>Click here</a>  </p>

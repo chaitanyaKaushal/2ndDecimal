@@ -90,3 +90,9 @@ a{
     text-decoration-line: none;
     color: white
 }
+
+.error{
+    color: red;
+    font-size: medium;
+    font-weight: 500;
+}
