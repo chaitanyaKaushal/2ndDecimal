@@ -5,18 +5,16 @@ conn = sqlite3.connect('decimal.db')
 c = conn.cursor()
 
 c.execute(""" create table student(
-    reg_id TEXT primary key,
+    id TEXT primary key,
     roll_no TEXT,
     name TEXT,
     email TEXT,
-    semester TEXT,
+    sem TEXT,
     year TEXT,
     branch TEXT,
     batch TEXT,
-    course TEXT,
     passwd TEXT
 )
-
 """)
 
 c.execute(""" create table teacher(
@@ -26,16 +24,14 @@ c.execute(""" create table teacher(
     subject TEXT,
     passwd TEXT
 )
-
 """)
 
 c.execute(""" create table course(
     course_name TEXT,
     year TEXT,
     branch TEXT,
-    batch TEXT
+    sem TEXT
 )
-
 """)
 
 conn.commit()
