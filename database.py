@@ -15,7 +15,6 @@ c.execute(""" create table student(
     batch TEXT,
     passwd TEXT
 )
-
 """)
 
 c.execute(""" create table teacher(
@@ -25,7 +24,6 @@ c.execute(""" create table teacher(
     subject TEXT,
     passwd TEXT
 )
-
 """)
 
 c.execute(""" create table course(
@@ -34,7 +32,6 @@ c.execute(""" create table course(
     branch TEXT,
     sem TEXT
 )
-
 """)
 
 conn.commit()
