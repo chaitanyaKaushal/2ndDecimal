@@ -14,12 +14,13 @@ def regStudent(file):
                         , branch = row["branch"], batch = row["batch"], passw = generate_password_hash(row["passwd"]))
 
 def regTeacher(file):
+    
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            db.execute("""Insert into teacher(reg_id, name, email, subject, passwd) 
-                        values(:reg_id, :name, :email, :subject, :passwd)""", 
-                        reg_id = row["reg_id"], name = row["name"], email = row["email"],
+            db.esqplite3xecute("""Insert into teacher(reg_id, name, email, subject, passwd) 
+                        values(:id, :name, :email, :subject, :passwd)""", 
+                        id = row["reg_id"], name = row["name"], email = row["email"],
                         subject = row["subject"], passwd = generate_password_hash(row["passwd"]))
 
 def regCourse(file):
@@ -31,5 +32,6 @@ def regCourse(file):
                         course_name = row["course_name"], year = row["year"], branch = row["branch"], sem = row["sem"]
                         )
 
+# regCourse("./course.csv")
 # regTeacher("./teacher.csv")
 # regStudent("./teacher.csv")
