@@ -45,16 +45,34 @@ def studentlogin():
         passw = request.form.get("pass")
         apass = db.execute("Select * from student where roll_no = :roll", roll = name)
         if len(apass) == 0:
-            return render_template("studentlogin.html", error = "User doesnot exist")
+            return render_template("studentlogin.html", error = "User does not exist")
         if not check_password_hash(apass[0]["passwd"], passw):
             return render_template("studentlogin.html", error = "Invalid details")
         session["uid"] = apass[0]["id"]
         return redirect("/home")
-        
-@app.route("/teacherlogin")
+
+@app.route("/home2")
+def home2():
+    details = db.execute("select * from teacher where reg_id = :id ", id = session["tid"])
+    return render_template("home2.html",name = details[0]["name"], email = details[0]["email"],reg_id = details[0]["reg_id"])
+
+@app.route("/teacherlogin", methods = ["GET", "POST"])
 @loggedout
 def teacherlogin():
-    return render_template("teacherlogin.html")
+    if request.method == "GET":
+        return render_template("teacherlogin.html")
+    else:
+        email = request.form.get("uname")
+        print(email)
+        passw = request.form.get("pass")
+        apass = db.execute("select * from teacher where email = :em",em = email)
+        if len(apass) == 0:
+            return render_template("teacherlogin.html",error = "User does not exist" )
+        if not check_password_hash(apass[0]["passwd"],passw) :
+            return render_template("teacherlogin.html",error = "Invalid details")
+        print(apass[0]["reg_id"])
+        session["tid"] = apass[0]["reg_id"]
+        return redirect("/home2")
 
 @app.route("/stafflogin")
 @loggedout
