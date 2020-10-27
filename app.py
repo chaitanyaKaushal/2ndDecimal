@@ -3,7 +3,7 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from tempfile import mkdtemp
 from cs50 import SQL
-from helper import staff_login, student_login, teacher_login
+from helper import staff_login, student_login, teacher_login, loggedin, loggedout
 
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -25,15 +25,18 @@ app.debug = True
 db = SQL("sqlite:///decimal.db")
 
 @app.route("/")
+@loggedout
 def index():
     return render_template("index.html")
 
 @app.route("/home")
+@loggedin
 def home():
     details = db.execute("select * from student where id = :id", id = session["uid"])
     return render_template("home.html", name = details[0]["name"], batch = details[0]["batch"], id = details[0]["roll_no"])
 
 @app.route("/studentlogin", methods = ["GET", "POST"])
+@loggedout
 def studentlogin():
     if request.method == "GET":
         return render_template("studentlogin.html")
@@ -49,9 +52,20 @@ def studentlogin():
         return redirect("/home")
         
 @app.route("/teacherlogin")
+@loggedout
 def teacherlogin():
     return render_template("teacherlogin.html")
 
 @app.route("/stafflogin")
+@loggedout
 def stafflogin():
     return render_template("stafflogin.html")
+
+@app.route("/logout", methods = ["GET", "POST"])
+@loggedin
+def logout():
+    if request.method == "GET":
+        return render_template("logout.html")
+    else:
+        session.clear()
+        return redirect("/")
