@@ -36,6 +36,7 @@ def home():
     return render_template("home.html", name = details[0]["name"], batch = details[0]["batch"], id = details[0]["roll_no"])
 
 @app.route("/home2")
+@loggedin
 def home2():
     details = db.execute("select * from teacher where reg_id = :id ", id = session["uid"])
     return render_template("home2.html",name = details[0]["name"], email = details[0]["email"],reg_id = details[0]["reg_id"])
