@@ -35,6 +35,11 @@ def home():
     details = db.execute("select * from student where id = :id", id = session["uid"])
     return render_template("home.html", name = details[0]["name"], batch = details[0]["batch"], id = details[0]["roll_no"])
 
+@app.route("/home2")
+def home2():
+    details = db.execute("select * from teacher where reg_id = :id ", id = session["uid"])
+    return render_template("home2.html",name = details[0]["name"], email = details[0]["email"],reg_id = details[0]["reg_id"])
+
 @app.route("/studentlogin", methods = ["GET", "POST"])
 @loggedout
 def studentlogin():
@@ -51,11 +56,6 @@ def studentlogin():
         session["uid"] = apass[0]["id"]
         return redirect("/home")
 
-@app.route("/home2")
-def home2():
-    details = db.execute("select * from teacher where reg_id = :id ", id = session["tid"])
-    return render_template("home2.html",name = details[0]["name"], email = details[0]["email"],reg_id = details[0]["reg_id"])
-
 @app.route("/teacherlogin", methods = ["GET", "POST"])
 @loggedout
 def teacherlogin():
@@ -71,7 +71,7 @@ def teacherlogin():
         if not check_password_hash(apass[0]["passwd"],passw) :
             return render_template("teacherlogin.html",error = "Invalid details")
         print(apass[0]["reg_id"])
-        session["tid"] = apass[0]["reg_id"]
+        session["uid"] = apass[0]["reg_id"]
         return redirect("/home2")
 
 @app.route("/stafflogin")
