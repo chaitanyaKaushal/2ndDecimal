@@ -32,15 +32,16 @@ def index():
 @app.route("/home")
 @loggedin
 def home():
-    details = db.execute("select * from student where id = :id", id = session["uid"])
-    return render_template("home.html", name = details[0]["name"], batch = details[0]["batch"], id = details[0]["roll_no"])
-
-@app.route("/home2")
-@loggedin
-def home2():
-    details = db.execute("select * from teacher where reg_id = :id ", id = session["uid"])
-    return render_template("home2.html",name = details[0]["name"], email = details[0]["email"],reg_id = details[0]["reg_id"])
-
+    if session["uid"][:2] == "su": 
+        details = db.execute("select * from student where id = :id", id = session["uid"])
+        courses = db.execute("select course_name from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
+        print(courses)
+        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = courses, name = details[0]["name"])
+    elif session["uid"][:2] == "te":
+        details = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
+        subjects = details[0]["subject"].split(',')
+        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
+    
 @app.route("/studentlogin", methods = ["GET", "POST"])
 @loggedout
 def studentlogin():
@@ -73,7 +74,7 @@ def teacherlogin():
             return render_template("teacherlogin.html",error = "Invalid details")
         print(apass[0]["reg_id"])
         session["uid"] = apass[0]["reg_id"]
-        return redirect("/home2")
+        return redirect("/home")
 
 @app.route("/stafflogin")
 @loggedout
@@ -88,3 +89,9 @@ def logout():
     else:
         session.clear()
         return redirect("/")
+    
+@app.route("/logout2")
+@loggedin
+def logout2():
+    session.clear()
+    return redirect("/")
