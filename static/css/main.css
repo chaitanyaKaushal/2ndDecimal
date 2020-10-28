@@ -153,7 +153,7 @@ h1, .subhead {
     content: "";
     width: 80px;
     height: 80px;
-    background-color: #fff;
+    background-color:goldenrod;
     top: -80px;
     position: absolute;
     right: 0;

@@ -14,12 +14,14 @@ background-size: cover;
   padding: 26px 30px 30px 30px;
 }
 .card:hover {
-  background-color: RoyalBlue;
+  background-color: #c5ae2b;
+  cursor: pointer;
 }
 
 /* Remove extra left and right margins, due to padding */
-.row {margin: 0px 70px 0px 160px;
-
+.row {
+  margin: 0px 70px 0px 220px;
+  text-align: center;
 }
 
 /* Clear floats after the columns */
