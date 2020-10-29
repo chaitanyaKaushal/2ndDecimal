@@ -27,6 +27,7 @@ c.execute(""" create table teacher(
 """)
 
 c.execute(""" create table course(
+    id TEXT primary key,
     course_name TEXT,
     year TEXT,
     branch TEXT,

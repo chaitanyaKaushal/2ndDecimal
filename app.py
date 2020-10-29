@@ -34,12 +34,16 @@ def index():
 def home():
     if session["uid"][:2] == "su": 
         details = db.execute("select * from student where id = :id", id = session["uid"])
-        courses = db.execute("select course_name from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
+        courses = db.execute("select course_name, id from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
         print(courses)
         return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = courses, name = details[0]["name"])
     elif session["uid"][:2] == "te":
         details = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
-        subjects = details[0]["subject"].split(',')
+        subcode = details[0]["subject"].split(',')
+        subjects = []
+        for code in subcode:
+            temp = db.execute("select id, course_name from course where id = :id", id = code)
+            subjects.append(temp[0])
         return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
     
 @app.route("/studentlogin", methods = ["GET", "POST"])
@@ -65,14 +69,12 @@ def teacherlogin():
         return render_template("teacherlogin.html")
     else:
         email = request.form.get("uname")
-        print(email)
         passw = request.form.get("pass")
         apass = db.execute("select * from teacher where email = :em",em = email)
         if len(apass) == 0:
             return render_template("teacherlogin.html",error = "User does not exist" )
         if not check_password_hash(apass[0]["passwd"],passw) :
             return render_template("teacherlogin.html",error = "Invalid details")
-        print(apass[0]["reg_id"])
         session["uid"] = apass[0]["reg_id"]
         return redirect("/home")
 
@@ -80,6 +82,15 @@ def teacherlogin():
 @loggedout
 def stafflogin():
     return render_template("stafflogin.html")
+
+
+@app.route("/course")
+@loggedin
+def course():
+    sid = request.args.get("id")
+    print(sid)
+    return redirect("/home")
+
 
 @app.route("/logout", methods = ["GET", "POST"])
 @loggedin

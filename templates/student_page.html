@@ -32,7 +32,7 @@
 <div class="row">
   {% for course in courses %}
     {% if id == "su"  %}
-      <div class="column">
+      <div class="column" sub-id = {{course["id"]}} onclick="javascript:document.location.href='/course?id={{course.id}}'" >
         <div style="background-color:#ddce77 ;border-radius: 11px;font-weight: bold;">
         <div class="card">
           <h1 style="font-size: medium;">{{course["course_name"]}}</h1>
@@ -40,10 +40,10 @@
           </div>
       </div>
     {% else %}
-      <div class="column">
+      <div class="column" sub-id = {{course["id"]}} onclick="javascript:document.location.href='/course?id={{course.id}}'">
         <div style="background-color:#ddce77 ;border-radius: 11px;font-weight: bold;">
         <div class="card">
-          <h1 style="font-size: medium;">{{course}}</h1>
+          <h1 style="font-size: medium;">{{course["course_name"]}}</h1>
           </div>
           </div>
       </div>
