@@ -22,7 +22,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 app.debug = True
 
-db = SQL("sqlite:///decimal.db")
+db = SQL("sqlite:///./database/decimal.db")
 
 @app.route("/")
 @loggedout
@@ -35,7 +35,6 @@ def home():
     if session["uid"][:2] == "su": 
         details = db.execute("select * from student where id = :id", id = session["uid"])
         courses = db.execute("select course_name, id from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
-        print(courses)
         return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = courses, name = details[0]["name"])
     elif session["uid"][:2] == "te":
         details = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
