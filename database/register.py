@@ -34,4 +34,4 @@ def regCourse(file):
 
 # regStudent("./student.csv")
 regTeacher("./teacher.csv")
-regCourse("./course.csv")
+# regCourse("./course.csv")

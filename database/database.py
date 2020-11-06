@@ -17,14 +17,14 @@ c = conn.cursor()
 # )
 # """)
 
-# c.execute(""" create table teacher(
-#     reg_id TEXT primary key,
-#     name TEXT,
-#     email TEXT,
-#     subject TEXT,
-#     passwd TEXT
-# )
-# """)
+c.execute(""" create table teacher(
+    reg_id TEXT primary key,
+    name TEXT,
+    email TEXT,
+    subject TEXT,
+    passwd TEXT
+)
+""")
 
 # c.execute(""" create table course(
 #     id TEXT primary key,
@@ -35,41 +35,41 @@ c = conn.cursor()
 # )
 # """)
 
-c.execute(""" create table announcement(
-    id TEXT primary key,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table announcement(
+#     id TEXT primary key,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
-c.execute(""" create table schedule(
-    id TEXT primary key,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table schedule(
+#     id TEXT primary key,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
-c.execute(""" create table cmaterial(
-    id TEXT primary key,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table cmaterial(
+#     id TEXT primary key,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
 conn.commit()
 conn.close()

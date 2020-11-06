@@ -1,6 +1,6 @@
 reg_id,name,email,subject,passwd
 te1,John,john@dec.edu,"c1,c10",te1@123
-te2,Carolina,carol@dec.edu,"c4, c5",te2@123
-te3,Benedict,ben@dec.edu,"c2, c3",te3@123
-te4,Manohar,manohar@dec.edu,"c6, c7",te4@123
+te2,Carolina,carol@dec.edu,"c4,c5",te2@123
+te3,Benedict,ben@dec.edu,"c2,c3",te3@123
+te4,Manohar,manohar@dec.edu,"c6,c7",te4@123
 te5,Bhavesh,bhaveshjoshi@dec.edu,"c8,c9",te5@123

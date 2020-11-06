@@ -42,6 +42,7 @@ def home():
         subjects = []
         for code in subcode:
             temp = db.execute("select id, course_name from course where id = :id", id = code)
+            print(temp)
             subjects.append(temp[0])
         return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
     
@@ -87,8 +88,26 @@ def stafflogin():
 @loggedin
 def course():
     sid = request.args.get("id")
-    print(sid)
-    return redirect("/home")
+    course = db.execute("select * from course where id = :sid", sid = sid)
+    course = course[0]
+    name = ""
+    uid = session["uid"]
+    if session["uid"][:2] == "su":
+        student = db.execute("select * from student where id = :uid", uid = uid)
+        student = student[0]
+        name = student["name"]
+        cmaterials = db.execute("select * from cmaterial where cid = :cid and :batch >= lower and :batch <= upper", cid = sid, batch = int(student["batch"]))
+        announcements = db.execute("select * from announcement where cid = :cid and :batch >= lower and :batch <= upper", cid = sid, batch = int(student["batch"]))
+        schedules = db.execute("select * from schedule where cid = :cid and :batch >= lower and :batch <= upper", cid = sid, batch = int(student["batch"]))
+        return render_template("course.html", course_name = course["course_name"], id = session["uid"][:2], name = name, cmaterials = cmaterials, announcements = announcements, schedules = schedules)
+    else:
+        teacher = db.execute("select * from teacher where reg_id = :uid", uid = uid)
+        teacher = teacher[0]
+        name = teacher["name"]
+        cmaterials = db.execute("select * from cmaterial where cid = :cid and tid = :tid", cid = sid, tid = session["uid"])
+        announcements = db.execute("select * from announcement where cid = :cid and tid = :tid", cid = sid, tid = session["uid"])
+        schedules = db.execute("select * from schedule where cid = :cid and tid = :tid", cid = sid, tid = session["uid"])
+        return render_template("course.html", course_name = course["course_name"], id = session["uid"][:2], name = name, cmaterials = cmaterials, announcements = announcements, schedules = schedules)
 
 
 @app.route("/logout", methods = ["GET", "POST"])
@@ -105,3 +124,27 @@ def logout():
 def logout2():
     session.clear()
     return redirect("/")
+
+@app.route("/delannounce", methods = ["GET", "POST"])
+@teacher_login
+def delannounce():
+    if request.method == "POST":
+        aid = request.args.get("id")
+        #db.execute("delete from announcement where id= :id", id = aid)
+        return redirect("/home")
+    
+@app.route("/delschedule", methods = ["GET", "POST"])
+@teacher_login
+def delschedule():
+    if request.method == "POST":
+        aid = request.args.get("id")
+        #db.execute("delete from schedule where id= :id", id = aid)
+        return redirect("/home")
+    
+@app.route("/delmaterial", methods = ["GET", "POST"])
+@teacher_login
+def delmaterial():
+    if request.method == "POST":
+        aid = request.args.get("id")
+        db.execute("delete from cmaterial where id= :id", id = aid)
+        return redirect("/home")
