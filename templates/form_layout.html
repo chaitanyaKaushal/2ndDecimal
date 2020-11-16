@@ -31,9 +31,9 @@
     </nav>
 
 <form>
-    <center> <h1> Class Announcement Form </h1> </center>   
+    <center> <h1> {%block title%}{%endblock%} </h1> </center>   
     <br>
-    <form class="form1">  
+    <form class="form1" action = {% block action %}{%endblock%} method = "POST">  
         <div class="container1">   
             <p>
                 <label class="l1">Select the subject:  </label>
@@ -46,12 +46,12 @@
             </p>
             
             <p>
-                <label class="l2">Announcement </label>
+                <label class="l2">{% block text %}{% endblock %} </label>
                 <textarea class="form-control" required name="blog" id="summernote" placeholder="Write here" id="exampleFormControlTextarea1" rows="60"></textarea>
             </p>
         
             <p>
-                <button>Submit</button>
+                <button type="Submit">Submit</button>
             </p>
 
         </div> 

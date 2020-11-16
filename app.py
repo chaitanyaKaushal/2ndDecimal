@@ -162,4 +162,35 @@ def cannouncemennts():
             subjects.append(sub[0])
         #print(subjects)
         print(teacher)
-        return render_template("form.html", subjects = subjects, name = teacher["name"])
+        return render_template("cannouncements.html", subjects = subjects, name = teacher["name"])
+
+
+@app.route("/schedule", methods = ["GET", "POST"])
+@teacher_login
+def schedule():
+    if request.method == "GET":
+        teacher = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
+        teacher = teacher[0]
+        temp = teacher["subject"].split(",")
+        subjects = []
+        for i in temp:
+            sub = db.execute("select * from course where id = :id", id = i)
+            subjects.append(sub[0])
+        #print(subjects)
+        print(teacher)
+        return render_template("schedule.html", subjects = subjects, name = teacher["name"])
+
+@app.route("/cmaterial", methods = ["GET", "POST"])
+@teacher_login
+def cmaterial():
+    if request.method == "GET":
+        teacher = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
+        teacher = teacher[0]
+        temp = teacher["subject"].split(",")
+        subjects = []
+        for i in temp:
+            sub = db.execute("select * from course where id = :id", id = i)
+            subjects.append(sub[0])
+        #print(subjects)
+        print(teacher)
+        return render_template("cmaterial.html", subjects = subjects, name = teacher["name"])
