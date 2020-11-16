@@ -148,3 +148,18 @@ def delmaterial():
         aid = request.args.get("id")
         db.execute("delete from cmaterial where id= :id", id = aid)
         return redirect("/home")
+
+@app.route("/cannouncements", methods = ["GET", "POST"])
+@teacher_login
+def cannouncemennts():
+    if request.method == "GET":
+        teacher = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
+        teacher = teacher[0]
+        temp = teacher["subject"].split(",")
+        subjects = []
+        for i in temp:
+            sub = db.execute("select * from course where id = :id", id = i)
+            subjects.append(sub[0])
+        #print(subjects)
+        print(teacher)
+        return render_template("form.html", subjects = subjects, name = teacher["name"])
