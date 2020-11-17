@@ -17,14 +17,14 @@ c = conn.cursor()
 # )
 # """)
 
-c.execute(""" create table teacher(
-    reg_id TEXT primary key,
-    name TEXT,
-    email TEXT,
-    subject TEXT,
-    passwd TEXT
-)
-""")
+# c.execute(""" create table teacher(
+#     reg_id TEXT primary key,
+#     name TEXT,
+#     email TEXT,
+#     subject TEXT,
+#     passwd TEXT
+# )
+# """)
 
 # c.execute(""" create table course(
 #     id TEXT primary key,
@@ -67,6 +67,26 @@ c.execute(""" create table teacher(
 #     upper TEXT,
 #     lower TEXT,
 #     info TEXT
+# )
+
+# """)
+
+# c.execute(""" create table staff(
+#     id TEXT primary key,
+#     name TEXT,
+#     passwd TEXT,
+#     email TEXT,
+#     designation TEXT
+# )
+
+# """)
+
+# c.execute(""" create table generalAnnouncement(
+#     id TEXT primary key,
+#     sid TEXT,
+#     info TEXT,
+#     year TEXT,
+#     stream TEXT
 # )
 
 # """)
