@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>staff Form</title> 
+        <link rel="stylesheet" type="text/css" href="staff_form_css.css">
+       
+    </head>
+
+<body class="form_body">
+
+    <nav class="navbar">
+        <ul>
+        <li><a class="active" href="/home">Home</a></li>
+        <li><a href="/cannouncements">Class Announcements</a></li>
+        <li><a href="/schedule">Schedule</a></li>
+        <li><a href="/cmaterial">Course Material</a></li>
+        <div class="logout_container">
+            <li><a href="#about">Welcome, {{name}}</a></li>
+            <li><a href="/logout2">Log out</a></li>
+        </div>
+        </ul>
+    </nav>
+
+<form>
+    <center> <h1> Announcements </h1> </center>   
+    <br>
+    <form class="form1" action = {% block action %}{%endblock%} method = "POST">  
+        <div class="container1">   
+            <p>
+                <label class="l1">Select the year:  </label>
+                <select class="s1">
+                    <option selected="selected">Choose here...</option>
+                    <option>1st year</option>
+                    <option>2nd year</option>
+                    <option>3rd year</option>
+                    <option>4th year</option>
+                </select>
+            </p>
+            
+            <p>
+                <label class="l3">Select the Branch: </label> <br>
+                <select class="s2">
+                    <option selected="selected">Choose here...</option>
+                    <option >COE</option>
+                    <option >ECE</option>
+                </select>
+            </p>
+
+            <p>
+                <label class="l2">{% block text %}{% endblock %} </label>
+                <textarea class="form-control" required name="blog" id="summernote" placeholder="Write here" id="exampleFormControlTextarea1" rows="60"></textarea>
+            </p>
+        
+            <p>
+                <button type="Submit">Submit</button>
+            </p>
+
+        </div>
+
+    </form>
+</form>
+
+</body>
+
+</html>
+
