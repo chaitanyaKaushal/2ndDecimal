@@ -35,41 +35,41 @@ c.execute(""" create table course(
 )
 """)
 
-c.execute(""" create table announcement(
-    id TEXT primary key,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table announcement(
+#     id TEXT primary key,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
-c.execute(""" create table schedule(
-    id TEXT primary key,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table schedule(
+#     id TEXT primary key,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
-c.execute(""" create table cmaterial(
-    id TEXT primary key,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table cmaterial(
+#     id TEXT primary key,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
 conn.commit()
 conn.close()

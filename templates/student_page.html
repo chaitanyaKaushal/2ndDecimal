@@ -9,7 +9,7 @@
   <nav>
     {% if id == "su"  %}
       <ul>
-        <li><a class="active" href="#home">Home</a></li>
+        <li><a class="active" href="/home">Home</a></li>
         <div class="logout_container">
             <li><a href="#about">Welcome, {{name}}</a></li>
             <li><a href="/logout2">Log out</a></li>
@@ -17,10 +17,10 @@
       </ul>
     {% else %}
         <ul>
-          <li><a class="active" href="#home">Home</a></li>
-          <li><a href="#news">Class Announcements</a></li>
-          <li><a href="#contact">Schedule</a></li>
-          <li><a href="#about">Course Material</a></li>
+          <li><a class="active" href="/home">Home</a></li>
+          <li><a href="/cannouncements">Class Announcements</a></li>
+          <li><a href="/schedule">Schedule</a></li>
+          <li><a href="/cmaterial">Course Material</a></li>
           <div class="logout_container">
               <li><a href="#about">Welcome, {{name}}</a></li>
               <li><a href="/logout2">Log out</a></li>
