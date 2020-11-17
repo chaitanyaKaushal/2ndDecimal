@@ -1,4 +1,3 @@
-<!-- Incomplete -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,8 +36,8 @@
         <div class="container1">   
             <p>
                 <label class="l1">Select the subject:  </label>
-                <select>
-                    <option selected="selected">Choose here</option>
+                <select class="s1">
+                    <option selected="selected">Choose here...</option>
                     {% for subject in subjects %}
                         <option >{{subject["course_name"]}}</option>
                     {% endfor %}
@@ -50,6 +49,28 @@
                 <textarea class="form-control" required name="blog" id="summernote" placeholder="Write here" id="exampleFormControlTextarea1" rows="60"></textarea>
             </p>
         
+            <p>
+                <label class="l3">Mark the range of class: </label> <br>
+                <select class="s2">
+                    <option selected="selected">Choose here...</option>
+                    <option >1</option>
+                    <option >2</option>
+                    <option >3</option>
+                    <option >4</option>
+                </select>
+
+                <select class="s3">
+                    <option selected="selected">Choose here...</option>
+                    <option >4</option>
+                    <option >5</option>
+                    <option >6</option>
+                    <option >7</option>
+                </select>
+
+            </p>
+
+            <br>
+                
             <p>
                 <button type="Submit">Submit</button>
             </p>
