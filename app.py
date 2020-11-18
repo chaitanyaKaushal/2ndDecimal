@@ -95,15 +95,35 @@ def home():
         return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
 
 @app.route("/staffhome")
-@staff_login
+@loggedin
 def staffhome():
-    announcements = db.execute("select * from gannouncement")
-    for i in announcements:
-        temp = db.execute("select designation from staff where id = :id", id= i["sid"])
-        temp = temp[0]
-        i["desig"] = temp["designation"]
-    print(announcements)
-    return render_template("staff_page.html", announcements = announcements)
+    if session["uid"][:2] == "st" or session["uid"][:2] == "te":
+        name = ""
+        if session["uid"][:2] == "st":
+            name = db.execute("select name from staff where id = :id", id = session["uid"])
+        else:
+            name = db.execute("select name from teacher where reg_id = :id", id = session["uid"])
+        announcements = db.execute("select * from gannouncement")
+        name = name[0]["name"]
+        for i in announcements:
+            temp = db.execute("select designation from staff where id = :id", id= i["sid"])
+            temp = temp[0]
+            i["desig"] = temp["designation"]
+        return render_template("staff_page.html",  id = session["uid"][:2],announcements = announcements, name = name)
+    else:
+        announcements = db.execute("select * from gannouncement")
+        stream = db.execute("select branch from student where id = :id", id = session["uid"])
+        stream = stream[0]["branch"]
+        myAnnouncements = []
+        name = db.execute("select name from student where id = :id", id = session["uid"])
+        name = name[0]["name"]
+        for i in announcements:
+            if i["stream"] == stream:
+                temp = db.execute("select designation from staff where id = :id", id= i["sid"])
+                temp = temp[0]
+                i["desig"] = temp["designation"]
+                myAnnouncements.append(i)
+        return render_template("staff_page.html", id = session["uid"][:2], announcements = myAnnouncements, name = name)
 
 @app.route("/course")
 @loggedin
