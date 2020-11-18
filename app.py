@@ -102,7 +102,8 @@ def staffhome():
         temp = db.execute("select designation from staff where id = :id", id= i["sid"])
         temp = temp[0]
         i["desig"] = temp["designation"]
-    return render_template("staffhome.html", announcements = announcements)
+    print(announcements)
+    return render_template("staff_page.html", announcements = announcements)
 
 @app.route("/course")
 @loggedin
@@ -168,6 +169,13 @@ def delmaterial():
         aid = request.args.get("id")
         db.execute("delete from cmaterial where id= :id", id = aid)
         return redirect("/home")
+
+@app.route("/delgannounce", methods = ["POST"])
+@staff_login
+def delgannounce():
+    aid = request.args.get("id")
+    db.execute("delete from gannouncement where id = :id", id = aid)
+    return redirect("/staffhome")
 
 @app.route("/cannouncements", methods = ["GET", "POST"])
 @teacher_login
