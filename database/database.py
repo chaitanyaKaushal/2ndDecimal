@@ -81,15 +81,15 @@ c = conn.cursor()
 
 # """)
 
-c.execute(""" create table gannouncement(
-    id Integer primary key autoincrement,
-    sid TEXT,
-    info TEXT,
-    year TEXT,
-    stream TEXT
-)
+# c.execute(""" create table gannouncement(
+#     id Integer primary key autoincrement,
+#     sid TEXT,
+#     info TEXT,
+#     year TEXT,
+#     stream TEXT
+# )
 
-""")
+# """)
 
 conn.commit()
 conn.close()
