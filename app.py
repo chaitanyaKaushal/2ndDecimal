@@ -256,3 +256,9 @@ def cmaterial():
 def gannouncement():
     if request.method == "GET":
         return render_template("staff_form.html")
+    else:
+        year = request.form.get("year")
+        branch = request.form.get("branch")
+        text = request.form.get("text")
+        db.execute("insert into gannouncement(sid, info, year, stream) values(:sid, :info, :year, :stream)", sid = session["uid"], info = text, year = year, stream = branch)
+        return redirect("/staffhome")
