@@ -1,0 +1,11 @@
+id,course_name,year,branch,sem
+c1,Artificial Intelligence (XAI5),3,COE,5
+c2,Computer Architecture and Organization (XCA5),3,COE,5
+c3,Digital Signal Processing (XDP5),3,ENC,5
+c4,Software Engineering (XSE5),3,COE,5
+c5,Operating Systems (XOS5),3,ENC,5
+c6,Data Structures and Algorithms (XDS5),3,COE,5
+c7,Theory of Computation (XTC5),3,COE,5
+c8,Computer Networks (XCN5),3,ENC,5
+c9,Computer Architecture and Organization (XCA5),3,ENC,5
+c10,Data Structures and Algorithms (XDS5),3,ENC,5

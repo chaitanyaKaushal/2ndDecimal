@@ -1,0 +1,123 @@
+.form_body{  
+    font-family: Calibri, Helvetica, sans-serif;  
+    background-color: lightgreen;  
+}  
+
+button:hover {   
+  opacity: 0.7;   
+  background: greenyellow;
+}      
+
+.container1 {   
+  padding: 25px;   
+  background-color: lightblue;
+  } 
+
+button {   
+  cursor: pointer;   
+  background-color: #4CAF50;
+  color: blue;
+  padding: 1em;
+  border-radius: 0.5em;
+  background: #eee;
+  border: none;
+  font-weight: bold;
+  margin-left: 28em;
+  margin-top: 1.8em;
+  }   
+
+form {   
+  font-size: 1em;
+  width: 50em;
+  padding: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid #f1f1f1;   
+}   
+
+.l1 {
+  padding: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.l2 {
+  padding: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.l3 {
+  padding: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.s1 {
+  margin-left: 2em;
+  float: center;
+  width: 42em;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+  padding: 0.3em;
+}
+
+.s2 {
+  margin-left: 2em;
+  float: center;
+  width: 20em;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+  padding: 0.3em;
+}
+
+.s3 {
+  margin-left: 2em;
+  float: center;
+  width: 20em;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+  padding: 0.3em;
+}
+
+textarea{
+  height: 250px;
+  margin-left: 4em;
+  float: center;
+  width: 46em;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+  padding: 0.3em;
+}
+
+.navbar{
+  width: 100%
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width: 100%;
+}
+.navbar ul .logout_container{
+float:right;
+}
+.navbar li {
+  float: left;
+}
+
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  background-color: #111;
+}
+    

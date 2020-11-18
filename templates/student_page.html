@@ -9,7 +9,7 @@
   <nav>
     {% if id == "su"  %}
       <ul>
-        <li><a class="active" href="#home">Home</a></li>
+        <li><a class="active" href="/home">Home</a></li>
         <div class="logout_container">
             <li><a href="#about">Welcome, {{name}}</a></li>
             <li><a href="/logout2">Log out</a></li>
@@ -17,10 +17,10 @@
       </ul>
     {% else %}
         <ul>
-          <li><a class="active" href="#home">Home</a></li>
-          <li><a href="#news">Class Announcements</a></li>
-          <li><a href="#contact">Schedule</a></li>
-          <li><a href="#about">Course Material</a></li>
+          <li><a class="active" href="/home">Home</a></li>
+          <li><a href="/cannouncements">Class Announcements</a></li>
+          <li><a href="/schedule">Schedule</a></li>
+          <li><a href="/cmaterial">Course Material</a></li>
           <div class="logout_container">
               <li><a href="#about">Welcome, {{name}}</a></li>
               <li><a href="/logout2">Log out</a></li>
@@ -32,7 +32,7 @@
 <div class="row">
   {% for course in courses %}
     {% if id == "su"  %}
-      <div class="column">
+      <div class="column" sub-id = {{course["id"]}} onclick="javascript:document.location.href='/course?id={{course.id}}'" >
         <div style="background-color:#ddce77 ;border-radius: 11px;font-weight: bold;">
         <div class="card">
           <h1 style="font-size: medium;">{{course["course_name"]}}</h1>
@@ -40,10 +40,10 @@
           </div>
       </div>
     {% else %}
-      <div class="column">
+      <div class="column" sub-id = {{course["id"]}} onclick="javascript:document.location.href='/course?id={{course.id}}'">
         <div style="background-color:#ddce77 ;border-radius: 11px;font-weight: bold;">
         <div class="card">
-          <h1 style="font-size: medium;">{{course}}</h1>
+          <h1 style="font-size: medium;">{{course["course_name"]}}</h1>
           </div>
           </div>
       </div>

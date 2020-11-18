@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  background-color: 	#b8870bd2;
+
+  height: auto;
+  background-size:50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  ul .logout_container{
+  float:right;
+  }
+
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111;
+  }
+
+h1{
+  border-radius: 50px 50px 50px 50px;
+  text-align: center;
+  color :	#B22222;
+  background-color: #F08080;
+  padding: 7px 0px 7px 0px;
+}
+
+.boxed {
+  border-bottom: 1px solid whitesmoke;
+  padding: 15px;
+ }
+
+ .outline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: top;
+}
+
+ .inline1{
+  border-radius: 50px 10px 10px 10px;
+  background-color: #D8BFD8;
+   border: none;
+   color:black;
+   text-align: center;
+   font-size: 28px;
+   padding: 20px;
+   width: 490px;
+   height : auto;
+   transition: all 0.5s;
+   cursor: pointer;
+   margin: 5px;
+ }
+
+ .inline2{
+  border-radius: 10px 10px 10px 10px;
+   background-color:#DDA0DD;
+   border: none;
+   color: black;
+   text-align: center;
+   font-size: 28px;
+   padding: 20px;
+   width: 490px;
+   height : auto;
+   transition: all 0.5s;
+   cursor: pointer;
+   margin: 5px;
+ }
+
+ .inline3{
+  border-radius: 10px 10px 50px 10px;
+  background-color:#FFA07A;
+  border: none;
+  color:black;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 490px;
+  height : auto;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.head {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: top;
+}
+
+.op1 {
+  border-radius: 5px 5px 5px 5px;
+  border-bottom: 1px solid whitesmoke;
+  padding: 10px;
+  text-align: center;
+  width: 490px;
+  font-size: 25px;
+  background-color:	#EEE8AA;
+  margin :5px;
+  color: #2F4F4F;
+ }
+
+ .op2 {
+  border-radius: 5px 5px 5px 5px;
+  border-bottom: 1px solid whitesmoke;
+  padding: 10px;
+  text-align: center;
+  width: 490px;
+  font-size: 25px;
+  background-color:#87CEEB;
+  margin :5px;
+  color: #800000;
+ }
+
+ .op3 {
+  border-radius: 5px 5px 5px 5px;
+  border-bottom: 1px solid whitesmoke;
+  padding: 10px;
+  text-align: center;
+  width: 490px;
+  font-size: 25px;
+  background-color: #98FB98;
+  margin :5px;
+  color: #000080;
+ }
+
+ .del{
+  border-radius: 10px 10px 10px 10px;
+   background-color: #DC143C;
+ }

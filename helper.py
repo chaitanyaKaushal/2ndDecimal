@@ -22,7 +22,9 @@ def loggedin(f):
 def student_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session.get("uid")[:3] != "su":
+        if session.get("uid") is None:
+            return redirect("/")
+        elif session.get("uid")[:2] != "su":
             return redirect("/logout")
         return f(*args, **kwargs)
     return decorated_function
@@ -30,7 +32,9 @@ def student_login(f):
 def teacher_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session.get("uid")[:3] != "te":
+        if session.get("uid") is None:
+            return redirect("/")
+        elif session.get("uid")[:2] != "te":
             return redirect("/logout")
         return f(*args, **kwargs)
     return decorated_function
@@ -38,7 +42,9 @@ def teacher_login(f):
 def staff_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session.get("uid")[:3] != "st":
+        if session.get("uid") is None:
+            return redirect("/")
+        elif session.get("uid")[:2] != "st":
             return redirect("/logout")
         return f(*args, **kwargs)
     return decorated_function

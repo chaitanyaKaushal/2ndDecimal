@@ -1,6 +1,0 @@
-reg_id,name,email,subject,passwd
-te1,John,john@dec.edu,Artificial Intelligence (XAI5),te1@123
-te2,Carolina,carol@dec.edu,"Software Engineering (XSE5), Operating Systems (XOS5)",te2@123
-te3,Benedict,ben@dec.edu,"Computer Architecture and Organization (XCA5), Digital Signal Processing (XDP5)",te3@123
-te4,Manohar,manohar@dec.edu,"Data Structures and Algorithms (XDS5), Theory of Computation (XTC5)",te4@123
-te5,Bhavesh,bhaveshjoshi@dec.edu,Computer Networks (XCN5),te5@123

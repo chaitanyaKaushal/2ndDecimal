@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Course_page</title> 
+    <link rel="stylesheet" type="text/css" href="../static/css/course_css.css"> 
+    </head>
+<body>
+  
+    <nav>
+        {% if id == "su"  %}
+          <ul>
+            <li><a class="active" href="/home">Home</a></li>
+            <div class="logout_container">
+                <li><a href="#about">Welcome, {{name}}</a></li>
+                <li><a href="/logout2">Log out</a></li>
+            </div>
+          </ul>
+        {% else %}
+            <ul>
+              <li><a class="active" href="/home">Home</a></li>
+              <li><a href="/cannouncements">Class Announcements</a></li>
+              <li><a href="/schedule">Schedule</a></li>
+              <li><a href="cmaterial">Course Material</a></li>
+              <div class="logout_container">
+                  <li><a href="#about">Welcome, {{name}}</a></li>
+                  <li><a href="/logout2">Log out</a></li>
+              </div>
+            </ul>
+        {% endif %}
+      </nav>
+    
+    <div class = "center">
+        <h1>{{course_name}}</h1>
+    </div>
+
+    <div class = "head">
+        <div class="op1">Class Announcements</div>
+        <div class="op2">Schedule</div>
+        <div class="op3">Class Material</div>
+    </div>
+
+ <div class = "outline">  
+    <div class="inline1" style = "display: inline-block;">
+        {% if announcements != [] %}
+            {% for announcement in announcements %}
+                <div class="boxed"> <p>
+                    {{announcement["info"] | safe}}
+
+                </p></div><br>
+                <form action="/delannounce?id={{announcement.id}}" method="POST">
+                    <button class="del" data-uid = {{announcement["id"]}} data-lid={{session.uid}} data-pid={{announcement["tid"]}} type="submit">Delete</button>
+                </form> 
+            {% endfor %}
+        {% else %}
+            <div class="boxed">No announcements yet.</div><br>
+        {% endif %}
+    </div>
+
+    <div class="inline2" style = "display: inline-block;">
+        {% if schedules != [] %}
+            {% for schedule in schedules %}
+                <div class="boxed">{{schedule["info"]|safe}}</div><br>
+                <form action="/delschedule?id={{schedule.id}}" method="POST">
+                    <button class="del" data-uid = {{schedule["id"]}} data-lid={{session.uid}} data-pid={{schedule["tid"]}} type="submit">Delete</button>
+                </form>
+            {% endfor %}
+        {% else %}
+            <div class="boxed">No schedule yet.</div><br>
+        {% endif %}
+    </div>
+
+    <div class="inline3" style = "display: inline-block;">
+        {% if cmaterials != [] %}
+            {% for cmaterial in cmaterials %}
+                <div class="boxed">{{cmaterial["info"] | safe}}</div><br>
+                <form action="/delmaterial?id={{cmaterial.id}}" method="POST">
+                    <button class="del" data-uid = {{cmaterial["id"]}} data-lid={{session.uid}} data-pid={{cmaterial["tid"]}} type="submit">Delete</button>
+                </form>
+            {% endfor %}
+        {% else %}
+            <div class="boxed">No material yet.</div><br>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll(".del").forEach((del)=>{
+        if(del.dataset.pid != del.dataset.lid)
+        {
+            del.style.display = "none"
+        }
+    })
+</script>
+
+
+</body>
+</html>
