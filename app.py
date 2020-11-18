@@ -90,14 +90,19 @@ def home():
         subjects = []
         for code in subcode:
             temp = db.execute("select id, course_name from course where id = :id", id = code)
-            print(temp)
+            #print(temp)
             subjects.append(temp[0])
         return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
 
 @app.route("/staffhome")
 @staff_login
 def staffhome():
-    return render_template("staffhome.html")
+    announcements = db.execute("select * from gannouncement")
+    for i in announcements:
+        temp = db.execute("select designation from staff where id = :id", id= i["sid"])
+        temp = temp[0]
+        i["desig"] = temp["designation"]
+    return render_template("staffhome.html", announcements = announcements)
 
 @app.route("/course")
 @loggedin
@@ -200,13 +205,13 @@ def schedule():
         teacher = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
         teacher = teacher[0]
         temp = teacher["subject"].split(",")
-        print(temp)
+        #print(temp)
         subjects = []
         for i in temp:
             sub = db.execute("select * from course where id = :id", id = i)
             subjects.append([sub[0], i])
         #print(subjects)
-        print(teacher)
+        #print(teacher)
         return render_template("schedule.html", subjects = subjects, name = teacher["name"])
     else:
         subject = request.form.get("subject")
@@ -215,7 +220,7 @@ def schedule():
         upper = request.form.get("upper")
         subs = db.execute("select subject from teacher where reg_id = :id", id = session["uid"])
         subject = subject.split(" ")
-        print(subject)
+        #print(subject)
         cid = subject[-1]
         name= ""
         for i in range(len(subject) - 1):
@@ -256,3 +261,9 @@ def cmaterial():
 def gannouncement():
     if request.method == "GET":
         return render_template("staff_form.html")
+    else:
+        year = request.form.get("year")
+        branch = request.form.get("branch")
+        text = request.form.get("text")
+        db.execute("insert into gannouncement(sid, info, year, stream) values(:sid, :info, :year, :stream)", sid = session["uid"], info = text, year = year, stream = branch)
+        return redirect("/staffhome")

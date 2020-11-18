@@ -3,7 +3,7 @@
   }
   body {
     font-family: Arial, Helvetica, sans-serif;
-  background-color: 	#b8870bd2;
+  background-color: 	#7cb2c7d2;
 
   height: auto;
   background-size:50% 50%;
@@ -56,6 +56,8 @@ h1{
   display: flex;
   flex-flow: row wrap;
   align-items: top;
+  padding-left:285px ;
+  height:500px;
 }
 
  .inline1{
@@ -74,14 +76,14 @@ h1{
  }
 
  .inline2{
-  border-radius: 10px 10px 10px 10px;
-   background-color:#DDA0DD;
+  border-radius: 70px 0px 70px 0px;
+   background-color:#6dc047;
    border: none;
    color: black;
    text-align: center;
    font-size: 28px;
    padding: 20px;
-   width: 490px;
+   width: 790px;
    height : auto;
    transition: all 0.5s;
    cursor: pointer;
@@ -96,7 +98,7 @@ h1{
   text-align: center;
   font-size: 28px;
   padding: 20px;
-  width: 490px;
+  width: 590px;
   height : auto;
   transition: all 0.5s;
   cursor: pointer;
@@ -107,18 +109,19 @@ h1{
   display: flex;
   flex-flow: row wrap;
   align-items: top;
+  padding-left:350px ;
 }
 
 .op1 {
   border-radius: 5px 5px 5px 5px;
-  border-bottom: 1px solid whitesmoke;
+  border-bottom: 1px solid rgb(154, 84, 175);
   padding: 10px;
   text-align: center;
-  width: 490px;
+  width: 690px;
   font-size: 25px;
-  background-color:	#EEE8AA;
+  background-color:	#050508;
   margin :5px;
-  color: #2F4F4F;
+  color: #dff5f5;
  }
 
  .op2 {
@@ -130,7 +133,7 @@ h1{
   font-size: 25px;
   background-color:#87CEEB;
   margin :5px;
-  color: #800000;
+  color: #979292;
  }
 
  .op3 {
@@ -147,5 +150,6 @@ h1{
 
  .del{
   border-radius: 10px 10px 10px 10px;
-   background-color: #DC143C;
+   background-color: #0f0608;
+   color: #D8BFD8;
  }
