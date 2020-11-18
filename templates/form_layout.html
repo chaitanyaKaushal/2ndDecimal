@@ -29,42 +29,37 @@
             </ul>
     </nav>
 
-<form>
+<div>
     <center> <h1> {%block title%}{%endblock%} </h1> </center>   
     <br>
-    <form class="form1" action = {% block action %}{%endblock%} method = "POST">  
+    <form class="form1" action = {% block action %}{%endblock%} method = "post">  
         <div class="container1">   
             <p>
                 <label class="l1">Select the subject:  </label>
-                <select class="s1">
-                    <option selected="selected">Choose here...</option>
+                <select class="s1" name = "subject">
                     {% for subject in subjects %}
-                        <option >{{subject["course_name"]}}</option>
+                        <option >{{subject[0]["course_name"]}}, {{subject[1]}}</option>
                     {% endfor %}
                 </select>
             </p>
             
             <p>
                 <label class="l2">{% block text %}{% endblock %} </label>
-                <textarea class="form-control" required name="blog" id="summernote" placeholder="Write here" id="exampleFormControlTextarea1" rows="60"></textarea>
+                <textarea name = "text" class="form-control" required name="blog" id="summernote" placeholder="Write here" id="exampleFormControlTextarea1" rows="60"></textarea>
             </p>
         
             <p>
                 <label class="l3">Mark the range of class: </label> <br>
-                <select class="s2">
-                    <option selected="selected">Choose here...</option>
-                    <option >1</option>
-                    <option >2</option>
-                    <option >3</option>
-                    <option >4</option>
+                <select class="s2" name = "lower">
+                    {% for i in range(32) %}
+                        <option >{{i+1}}</option>
+                    {% endfor %}
                 </select>
 
-                <select class="s3">
-                    <option selected="selected">Choose here...</option>
-                    <option >4</option>
-                    <option >5</option>
-                    <option >6</option>
-                    <option >7</option>
+                <select class="s3" name = "upper">
+                    {% for i in range(32) %}
+                        <option >{{i+1}}</option>
+                    {% endfor %}
                 </select>
 
             </p>
@@ -77,41 +72,8 @@
 
         </div> 
 
-    
-<!-- 
-    // slider code
-    
-    //html
-    <input id="ex12c" type="text"/><br/>
-
-    //    JavaScript
-
-    // With JQuery
-    $("#ex12a").slider({ id: "slider12a", min: 0, max: 10, value: 5 });
-    $("#ex12b").slider({ id: "slider12b", min: 0, max: 10, range: true, value: [3, 7] });
-    $("#ex12c").slider({ id: "slider12c", min: 0, max: 10, range: true, value: [3, 7] });
-
-    // Without JQuery
-    var sliderA = new Slider("#ex12a", { id: "slider12a", min: 0, max: 10, value: 5 });
-    var sliderB = new Slider("#ex12b", { id: "slider12b", min: 0, max: 10, range: true, value: [3, 7] });
-    var sliderC = new Slider("#ex12c", { id: "slider12c", min: 0, max: 10, range: true, value: [3, 7] });
-
-    // css
-    #slider12a .slider-track-high, #slider12c .slider-track-high {
-        background: green;
-    }
-    
-    #slider12b .slider-track-low, #slider12c .slider-track-low {
-        background: red;
-    }
-    
-    #slider12c .slider-selection {
-        background: yellow;
-    }
--->
-
     </form>
-</form>
+</div>
     <script>
         $(document).ready(function() {
             $('#summernote').summernote();

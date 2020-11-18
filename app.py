@@ -130,7 +130,7 @@ def logout2():
 def delannounce():
     if request.method == "POST":
         aid = request.args.get("id")
-        #db.execute("delete from announcement where id= :id", id = aid)
+        db.execute("delete from announcement where id= :id", id = aid)
         return redirect("/home")
     
 @app.route("/delschedule", methods = ["GET", "POST"])
@@ -138,7 +138,7 @@ def delannounce():
 def delschedule():
     if request.method == "POST":
         aid = request.args.get("id")
-        #db.execute("delete from schedule where id= :id", id = aid)
+        db.execute("delete from schedule where id= :id", id = aid)
         return redirect("/home")
     
 @app.route("/delmaterial", methods = ["GET", "POST"])
@@ -159,10 +159,23 @@ def cannouncemennts():
         subjects = []
         for i in temp:
             sub = db.execute("select * from course where id = :id", id = i)
-            subjects.append(sub[0])
+            subjects.append([sub[0], i])
         #print(subjects)
-        print(teacher)
+        #print(teacher)
         return render_template("cannouncements.html", subjects = subjects, name = teacher["name"])
+    else:
+        subject = request.form.get("subject")
+        text = request.form.get("text")
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        subs = db.execute("select subject from teacher where reg_id = :id", id = session["uid"])
+        subject = subject.split(" ")
+        cid = subject[-1]
+        name= ""
+        for i in range(len(subject) - 1):
+            name += subject[i]
+        db.execute("insert into announcement(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
+        return redirect("/home")
 
 
 @app.route("/schedule", methods = ["GET", "POST"])
@@ -172,13 +185,28 @@ def schedule():
         teacher = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
         teacher = teacher[0]
         temp = teacher["subject"].split(",")
+        print(temp)
         subjects = []
         for i in temp:
             sub = db.execute("select * from course where id = :id", id = i)
-            subjects.append(sub[0])
+            subjects.append([sub[0], i])
         #print(subjects)
         print(teacher)
         return render_template("schedule.html", subjects = subjects, name = teacher["name"])
+    else:
+        subject = request.form.get("subject")
+        text = request.form.get("text")
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        subs = db.execute("select subject from teacher where reg_id = :id", id = session["uid"])
+        subject = subject.split(" ")
+        print(subject)
+        cid = subject[-1]
+        name= ""
+        for i in range(len(subject) - 1):
+            name += subject[i]
+        db.execute("insert into schedule(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
+        return redirect("/home")
 
 @app.route("/cmaterial", methods = ["GET", "POST"])
 @teacher_login
@@ -190,7 +218,20 @@ def cmaterial():
         subjects = []
         for i in temp:
             sub = db.execute("select * from course where id = :id", id = i)
-            subjects.append(sub[0])
+            subjects.append([sub[0], i])
         #print(subjects)
-        print(teacher)
+        #print(teacher)
         return render_template("cmaterial.html", subjects = subjects, name = teacher["name"])
+    else:
+        subject = request.form.get("subject")
+        text = request.form.get("text")
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        subs = db.execute("select subject from teacher where reg_id = :id", id = session["uid"])
+        subject = subject.split(" ")
+        cid = subject[-1]
+        name= ""
+        for i in range(len(subject) - 1):
+            name += subject[i]
+        db.execute("insert into cmaterial(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
+        return redirect("/home")
