@@ -48,13 +48,14 @@
     </div>
 
  <div class = "outline">  
-    <div class="inline2" style = "display:inline-block;">
+    <div class="inline1" style = "display:inline-block;">
         {% if announcements != [] %}
             {% for announcement in announcements %}
-                <div class="boxed">{{announcement["info"] | safe}}</div><br>
+                <div class="boxed">{{announcement["info"] | safe}}
                 <form action="/delgannounce?id={{announcement.id}}" method="POST">
                     <button class="del" data-uid = {{announcement["id"]}} data-lid={{session.uid}} data-pid={{announcement["sid"]}} type="submit">Delete</button>
                 </form>
+            </div>
             {% endfor %}
         {% else %}
             <div class="boxed">No announcements yet.</div><br>
