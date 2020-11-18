@@ -35,38 +35,58 @@ c = conn.cursor()
 # )
 # """)
 
-c.execute(""" create table announcement(
-    id INTEGER primary key AUTOINCREMENT,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table announcement(
+#     id INTEGER primary key AUTOINCREMENT,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
-c.execute(""" create table schedule(
-    id INTEGER primary key AUTOINCREMENT,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
-)
+# c.execute(""" create table schedule(
+#     id INTEGER primary key AUTOINCREMENT,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
 
-""")
+# """)
 
-c.execute(""" create table cmaterial(
-    id INTEGER primary key AUTOINCREMENT,
-    tid TEXT,
-    subject TEXT,
-    cid TEXT,
-    upper TEXT,
-    lower TEXT,
-    info TEXT
+# c.execute(""" create table cmaterial(
+#     id INTEGER primary key AUTOINCREMENT,
+#     tid TEXT,
+#     subject TEXT,
+#     cid TEXT,
+#     upper TEXT,
+#     lower TEXT,
+#     info TEXT
+# )
+
+# """)
+
+# c.execute(""" create table staff(
+#     id TEXT primary key,
+#     name TEXT,
+#     passwd TEXT,
+#     email TEXT,
+#     designation TEXT
+# )
+
+# """)
+
+c.execute(""" create table gannouncement(
+    id Integer primary key autoincrement,
+    sid TEXT,
+    info TEXT,
+    year TEXT,
+    stream TEXT
 )
 
 """)

@@ -28,23 +28,6 @@ db = SQL("sqlite:///./database/decimal.db")
 @loggedout
 def index():
     return render_template("index.html")
-
-@app.route("/home")
-@loggedin
-def home():
-    if session["uid"][:2] == "su": 
-        details = db.execute("select * from student where id = :id", id = session["uid"])
-        courses = db.execute("select course_name, id from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
-        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = courses, name = details[0]["name"])
-    elif session["uid"][:2] == "te":
-        details = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
-        subcode = details[0]["subject"].split(',')
-        subjects = []
-        for code in subcode:
-            temp = db.execute("select id, course_name from course where id = :id", id = code)
-            print(temp)
-            subjects.append(temp[0])
-        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
     
 @app.route("/studentlogin", methods = ["GET", "POST"])
 @loggedout
@@ -78,11 +61,43 @@ def teacherlogin():
         session["uid"] = apass[0]["reg_id"]
         return redirect("/home")
 
-@app.route("/stafflogin")
+@app.route("/stafflogin", methods = ["POST", "GET"])
 @loggedout
 def stafflogin():
-    return render_template("stafflogin.html")
+    if request.method == "GET":
+        return render_template("stafflogin.html")
+    else:
+        email = request.form.get("uname")
+        passw = request.form.get("pass")
+        apass = db.execute("select * from staff where email = :em",em = email)
+        if len(apass) == 0:
+            return render_template("teacherlogin.html",error = "User does not exist" )
+        if not check_password_hash(apass[0]["passwd"],passw) :
+            return render_template("teacherlogin.html",error = "Invalid details")
+        session["uid"] = apass[0]["id"]
+        return redirect("/staffhome")
 
+@app.route("/home")
+@loggedin
+def home():
+    if session["uid"][:2] == "su": 
+        details = db.execute("select * from student where id = :id", id = session["uid"])
+        courses = db.execute("select course_name, id from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
+        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = courses, name = details[0]["name"])
+    elif session["uid"][:2] == "te":
+        details = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
+        subcode = details[0]["subject"].split(',')
+        subjects = []
+        for code in subcode:
+            temp = db.execute("select id, course_name from course where id = :id", id = code)
+            print(temp)
+            subjects.append(temp[0])
+        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
+
+@app.route("/staffhome")
+@staff_login
+def staffhome():
+    return render_template("staffhome.html")
 
 @app.route("/course")
 @loggedin
@@ -235,3 +250,9 @@ def cmaterial():
             name += subject[i]
         db.execute("insert into cmaterial(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
         return redirect("/home")
+
+@app.route("/gannouncement", methods = ["GET", "POST"])
+@staff_login
+def gannouncement():
+    if request.method == "GET":
+        return render_template("staff_form.html")
