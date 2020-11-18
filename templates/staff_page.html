@@ -9,27 +9,41 @@
     <nav>
         <ul >
             <li><a class="active" href="">Home</a></li>
-            <li><a href="">General Announcements</a></li>
+            <li><a href="/gannouncement">Announcements</a></li>
             <div class="logout_container">
                 <li><a href="">Welcome</a></li>
-                <li><a href="">Log out</a></li>
+                <li><a href="/logout2">Log out</a></li>
             </div>
         </ul>
     </nav>
     
 
     <div class = "head">
-        <div class="op1">General Announcements</div>
+        <div class="op1">Announcements</div>
     </div>
 
  <div class = "outline">  
     <div class="inline2" style = "display:inline-block;">
-        <div class="boxed">This text his text is enclosed in a box.this text his text is enclosed in a box.this text his text is enclosed in a box.his text is enclosed in a box.is enclosed in a box.<br><button class="del" onclick="delete()">Delete</button></div>
-        <div class="boxed">This text his text is enclosed in a box.his text is enclosed in a box.is enclosed in a box.<br><button class="del" onclick="delete()">Delete</button></div>
-        <div class="boxed">This text his text is enclosed in a box.his text is enclosed in a box.is enclosed in a box.<br><button class="del" onclick="delete()">Delete</button></div>
+        {% if announcements != [] %}
+            {% for announcement in announcements %}
+                <div class="boxed">{{announcement["info"] | safe}}</div><br>
+                <form action="/delgannounce?id={{announcement.id}}" method="POST">
+                    <button class="del" data-uid = {{announcement["id"]}} data-lid={{session.uid}} data-pid={{announcement["sid"]}} type="submit">Delete</button>
+                </form>
+            {% endfor %}
+        {% else %}
+            <div class="boxed">No announcements yet.</div><br>
+        {% endif %}
     </div>
  </div>
-
+<script>
+    document.querySelectorAll(".del").forEach((del)=>{
+        if(del.dataset.pid != del.dataset.lid)
+        {
+            del.style.display = "none"
+        }
+    })
+</script>
 
 
 </body>

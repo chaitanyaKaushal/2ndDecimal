@@ -32,16 +32,16 @@ db = SQL("sqlite:///decimal.db")
 #                         course_name = row["course_name"], year = row["year"], branch = row["branch"], sem = row["sem"]
 #                         )
 
-def regStaff(file):
-    with open(file) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            db.execute("""Insert into staff(id, name, passwd, email, designation) 
-                        values(:id, :name, :passwd, :email, :designation)""", id = row["id"],
-                        name = row["name"], passwd = generate_password_hash(row["passwd"]), email = row["email"], designation = row["designation"]
-                        )
+# def regStaff(file):
+#     with open(file) as f:
+#         reader = csv.DictReader(f)
+#         for row in reader:
+#             db.execute("""Insert into staff(id, name, passwd, email, designation) 
+#                         values(:id, :name, :passwd, :email, :designation)""", id = row["id"],
+#                         name = row["name"], passwd = generate_password_hash(row["passwd"]), email = row["email"], designation = row["designation"]
+#                         )
 
-# regStudent("./student.csv")
-# regTeacher("./teacher.csv")
-# regCourse("./course.csv")
+regStudent("./student.csv")
+regTeacher("./teacher.csv")
+regCourse("./course.csv")
 regStaff("staff.csv")
