@@ -52,9 +52,11 @@
         {% if announcements != [] %}
             {% for announcement in announcements %}
                 <div class="boxed">{{announcement["info"] | safe}}
+                <p class="left"> ~ {{announcement["desig"]}} </p>
                 <form action="/delgannounce?id={{announcement.id}}" method="POST">
                     <button class="del" data-uid = {{announcement["id"]}} data-lid={{session.uid}} data-pid={{announcement["sid"]}} type="submit">Delete</button>
                 </form>
+
             </div>
             {% endfor %}
         {% else %}

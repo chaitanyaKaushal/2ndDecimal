@@ -65,8 +65,8 @@ h1{
   background-color: burlywood;
    border: none;
    color:black;
-   text-align: center;
-   font-size: 28px;
+   /* text-align: center; */
+   font-size: 22px;
    padding: 20px;
    width: 900px;
    height : auto;
@@ -102,8 +102,10 @@ h1{
  }
 
  .left{
-   font-size: smaller;
-   font-style: italic;
-   margin: 0;
-   margin-left: auto;
+  font-size: smaller;
+  font-style: italic;
+  margin-left: auto;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: right;
  }
