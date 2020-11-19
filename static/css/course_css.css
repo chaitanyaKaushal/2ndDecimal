@@ -1,4 +1,5 @@
 * {
+  margin: 0;
     box-sizing: border-box;
   }
   body {
@@ -50,6 +51,7 @@ h1{
 .boxed {
   border-bottom: 1px solid whitesmoke;
   padding: 15px;
+  
  }
 
  .outline {
@@ -69,7 +71,7 @@ h1{
    width: 490px;
    height : auto;
    transition: all 0.5s;
-   cursor: pointer;
+  
    margin: 5px;
  }
 
@@ -84,7 +86,7 @@ h1{
    width: 490px;
    height : auto;
    transition: all 0.5s;
-   cursor: pointer;
+ 
    margin: 5px;
  }
 
@@ -99,7 +101,7 @@ h1{
   width: 490px;
   height : auto;
   transition: all 0.5s;
-  cursor: pointer;
+
   margin: 5px;
 }
 
@@ -148,4 +150,5 @@ h1{
  .del{
   border-radius: 10px 10px 10px 10px;
    background-color: #DC143C;
+   cursor: pointer;
  }
