@@ -1,4 +1,4 @@
-from flask import Flask, flash, jsonify, redirect, render_template, request, session, Markup
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, Markup, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from tempfile import mkdtemp
@@ -20,7 +20,6 @@ app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-app.debug = True
 
 db = SQL("sqlite:///./database/decimal.db")
 
@@ -43,7 +42,7 @@ def studentlogin():
         if not check_password_hash(apass[0]["passwd"], passw):
             return render_template("studentlogin.html", error = "Invalid details")
         session["uid"] = apass[0]["id"]
-        return redirect("/home")
+        return redirect(url_for("home"))
 
 @app.route("/teacherlogin", methods = ["GET", "POST"])
 @loggedout
@@ -59,7 +58,7 @@ def teacherlogin():
         if not check_password_hash(apass[0]["passwd"],passw) :
             return render_template("teacherlogin.html",error = "Invalid details")
         session["uid"] = apass[0]["reg_id"]
-        return redirect("/home")
+        return redirect(url_for("home"))
 
 @app.route("/stafflogin", methods = ["POST", "GET"])
 @loggedout
@@ -75,7 +74,7 @@ def stafflogin():
         if not check_password_hash(apass[0]["passwd"],passw) :
             return render_template("teacherlogin.html",error = "Invalid details")
         session["uid"] = apass[0]["id"]
-        return redirect("/staffhome")
+        return redirect(url_for("staffhome"))
 
 @app.route("/home")
 @loggedin
@@ -158,13 +157,13 @@ def logout():
         return render_template("logout.html")
     else:
         session.clear()
-        return redirect("/")
+        return redirect(url_for("index"))
     
 @app.route("/logout2")
 @loggedin
 def logout2():
     session.clear()
-    return redirect("/")
+    return redirect(url_for("index"))
 
 @app.route("/delannounce", methods = ["GET", "POST"])
 @teacher_login
@@ -172,7 +171,7 @@ def delannounce():
     if request.method == "POST":
         aid = request.args.get("id")
         db.execute("delete from announcement where id= :id", id = aid)
-        return redirect("/home")
+        return redirect(url_for("home"))
     
 @app.route("/delschedule", methods = ["GET", "POST"])
 @teacher_login
@@ -180,7 +179,7 @@ def delschedule():
     if request.method == "POST":
         aid = request.args.get("id")
         db.execute("delete from schedule where id= :id", id = aid)
-        return redirect("/home")
+        return redirect(url_for("home"))
     
 @app.route("/delmaterial", methods = ["GET", "POST"])
 @teacher_login
@@ -188,14 +187,14 @@ def delmaterial():
     if request.method == "POST":
         aid = request.args.get("id")
         db.execute("delete from cmaterial where id= :id", id = aid)
-        return redirect("/home")
+        return redirect(url_for("home"))
 
 @app.route("/delgannounce", methods = ["POST"])
 @staff_login
 def delgannounce():
     aid = request.args.get("id")
     db.execute("delete from gannouncement where id = :id", id = aid)
-    return redirect("/staffhome")
+    return redirect(url_for("staffhome"))
 
 @app.route("/cannouncements", methods = ["GET", "POST"])
 @teacher_login
@@ -223,7 +222,7 @@ def cannouncemennts():
         for i in range(len(subject) - 1):
             name += subject[i]
         db.execute("insert into announcement(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
-        return redirect("/home")
+        return redirect(url_for("home"))
 
 
 @app.route("/schedule", methods = ["GET", "POST"])
@@ -254,7 +253,7 @@ def schedule():
         for i in range(len(subject) - 1):
             name += subject[i]
         db.execute("insert into schedule(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
-        return redirect("/home")
+        return redirect(url_for("home"))
 
 @app.route("/cmaterial", methods = ["GET", "POST"])
 @teacher_login
@@ -282,7 +281,7 @@ def cmaterial():
         for i in range(len(subject) - 1):
             name += subject[i]
         db.execute("insert into cmaterial(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
-        return redirect("/home")
+        return redirect(url_for("home"))
 
 @app.route("/gannouncement", methods = ["GET", "POST"])
 @staff_login
@@ -294,4 +293,4 @@ def gannouncement():
         branch = request.form.get("branch")
         text = request.form.get("text")
         db.execute("insert into gannouncement(sid, info, year, stream) values(:sid, :info, :year, :stream)", sid = session["uid"], info = text, year = year, stream = branch)
-        return redirect("/staffhome")
+        return redirect(url_for("staffhome"))
