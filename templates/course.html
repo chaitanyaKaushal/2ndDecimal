@@ -8,25 +8,27 @@
   
     <nav>
         {% if id == "su"  %}
-          <ul>
-            <li><a class="active" href="/home">Home</a></li>
-            <div class="logout_container">
-                <li><a href="#about">Welcome, {{name}}</a></li>
-                <li><a href="/logout2">Log out</a></li>
-            </div>
-          </ul>
-        {% else %}
-            <ul>
-              <li><a class="active" href="/home">Home</a></li>
-              <li><a href="#news">Class Announcements</a></li>
-              <li><a href="#contact">Schedule</a></li>
-              <li><a href="#about">Course Material</a></li>
-              <div class="logout_container">
-                  <li><a href="#about">Welcome, {{name}}</a></li>
-                  <li><a href="/logout2">Log out</a></li>
-              </div>
-            </ul>
-        {% endif %}
+      <ul>
+        <li><a class="active" href="/home">Home</a></li>
+        <li><a class="active" href="/staffhome">General Announcements</a></li>
+        <div class="logout_container">
+            <li><a href="#about">Welcome, {{name}}</a></li>
+            <li><a href="/logout2">Log out</a></li>
+        </div>
+      </ul>
+    {% else %}
+        <ul>
+          <li><a class="active" href="/home">Home</a></li>
+          <li><a href="/cannouncements">Class Announcements</a></li>
+          <li><a href="/schedule">Schedule</a></li>
+          <li><a href="/cmaterial">Course Material</a></li>
+          <li><a href="/staffhome">General Announcements</a></li>
+          <div class="logout_container">
+              <li><a href="#about">Welcome, {{name}}</a></li>
+              <li><a href="/logout2">Log out</a></li>
+          </div>
+        </ul>
+    {% endif %}
       </nav>
     
     <div class = "center">
@@ -43,10 +45,14 @@
     <div class="inline1" style = "display: inline-block;">
         {% if announcements != [] %}
             {% for announcement in announcements %}
-                <div class="boxed">{{announcement["info"]}}</div><br>
+                <div class="boxed"> <p>
+                    {{announcement["info"] | safe}}
+
+                </p>
                 <form action="/delannounce?id={{announcement.id}}" method="POST">
                     <button class="del" data-uid = {{announcement["id"]}} data-lid={{session.uid}} data-pid={{announcement["tid"]}} type="submit">Delete</button>
-                </form> 
+                </form>
+            </div> 
             {% endfor %}
         {% else %}
             <div class="boxed">No announcements yet.</div><br>
@@ -56,10 +62,12 @@
     <div class="inline2" style = "display: inline-block;">
         {% if schedules != [] %}
             {% for schedule in schedules %}
-                <div class="boxed">{{schedule["info"]}}</div><br>
+                <div class="boxed">{{schedule["info"]|safe}}
                 <form action="/delschedule?id={{schedule.id}}" method="POST">
                     <button class="del" data-uid = {{schedule["id"]}} data-lid={{session.uid}} data-pid={{schedule["tid"]}} type="submit">Delete</button>
                 </form>
+
+            </div>
             {% endfor %}
         {% else %}
             <div class="boxed">No schedule yet.</div><br>
@@ -69,10 +77,12 @@
     <div class="inline3" style = "display: inline-block;">
         {% if cmaterials != [] %}
             {% for cmaterial in cmaterials %}
-                <div class="boxed">{{cmaterial["info"]}}</div><br>
+                <div class="boxed">{{cmaterial["info"] | safe}}
                 <form action="/delmaterial?id={{cmaterial.id}}" method="POST">
                     <button class="del" data-uid = {{cmaterial["id"]}} data-lid={{session.uid}} data-pid={{cmaterial["tid"]}} type="submit">Delete</button>
                 </form>
+
+            </div>
             {% endfor %}
         {% else %}
             <div class="boxed">No material yet.</div><br>

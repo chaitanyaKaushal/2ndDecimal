@@ -1,4 +1,4 @@
-from flask import Flask, flash, jsonify, redirect, render_template, request, session, Markup
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, Markup, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from tempfile import mkdtemp
@@ -17,10 +17,9 @@ def after_request(response):
     return response
 
 app.config["SESSION_FILE_DIR"] = mkdtemp()
-app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-app.debug = True
 
 db = SQL("sqlite:///./database/decimal.db")
 
@@ -28,23 +27,6 @@ db = SQL("sqlite:///./database/decimal.db")
 @loggedout
 def index():
     return render_template("index.html")
-
-@app.route("/home")
-@loggedin
-def home():
-    if session["uid"][:2] == "su": 
-        details = db.execute("select * from student where id = :id", id = session["uid"])
-        courses = db.execute("select course_name, id from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
-        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = courses, name = details[0]["name"])
-    elif session["uid"][:2] == "te":
-        details = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
-        subcode = details[0]["subject"].split(',')
-        subjects = []
-        for code in subcode:
-            temp = db.execute("select id, course_name from course where id = :id", id = code)
-            print(temp)
-            subjects.append(temp[0])
-        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
     
 @app.route("/studentlogin", methods = ["GET", "POST"])
 @loggedout
@@ -60,7 +42,7 @@ def studentlogin():
         if not check_password_hash(apass[0]["passwd"], passw):
             return render_template("studentlogin.html", error = "Invalid details")
         session["uid"] = apass[0]["id"]
-        return redirect("/home")
+        return redirect(url_for("home"))
 
 @app.route("/teacherlogin", methods = ["GET", "POST"])
 @loggedout
@@ -76,13 +58,71 @@ def teacherlogin():
         if not check_password_hash(apass[0]["passwd"],passw) :
             return render_template("teacherlogin.html",error = "Invalid details")
         session["uid"] = apass[0]["reg_id"]
-        return redirect("/home")
+        return redirect(url_for("home"))
 
-@app.route("/stafflogin")
+@app.route("/stafflogin", methods = ["POST", "GET"])
 @loggedout
 def stafflogin():
-    return render_template("stafflogin.html")
+    if request.method == "GET":
+        return render_template("stafflogin.html")
+    else:
+        email = request.form.get("uname")
+        passw = request.form.get("pass")
+        apass = db.execute("select * from staff where email = :em",em = email)
+        if len(apass) == 0:
+            return render_template("teacherlogin.html",error = "User does not exist" )
+        if not check_password_hash(apass[0]["passwd"],passw) :
+            return render_template("teacherlogin.html",error = "Invalid details")
+        session["uid"] = apass[0]["id"]
+        return redirect(url_for("staffhome"))
 
+@app.route("/home")
+@loggedin
+def home():
+    if session["uid"][:2] == "su": 
+        details = db.execute("select * from student where id = :id", id = session["uid"])
+        courses = db.execute("select course_name, id from course where branch = :branch and sem = :sem", branch = details[0]["branch"], sem = details[0]["sem"])
+        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = courses, name = details[0]["name"])
+    elif session["uid"][:2] == "te":
+        details = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
+        subcode = details[0]["subject"].split(',')
+        subjects = []
+        for code in subcode:
+            temp = db.execute("select id, course_name from course where id = :id", id = code)
+            #print(temp)
+            subjects.append(temp[0])
+        return render_template("student_page.html", sid = session["uid"], id = session["uid"][:2], courses = subjects, name = details[0]["name"])
+
+@app.route("/staffhome")
+@loggedin
+def staffhome():
+    if session["uid"][:2] == "st" or session["uid"][:2] == "te":
+        name = ""
+        if session["uid"][:2] == "st":
+            name = db.execute("select name from staff where id = :id", id = session["uid"])
+        else:
+            name = db.execute("select name from teacher where reg_id = :id", id = session["uid"])
+        announcements = db.execute("select * from gannouncement")
+        name = name[0]["name"]
+        for i in announcements:
+            temp = db.execute("select designation from staff where id = :id", id= i["sid"])
+            temp = temp[0]
+            i["desig"] = temp["designation"]
+        return render_template("staff_page.html",  id = session["uid"][:2],announcements = announcements, name = name)
+    else:
+        announcements = db.execute("select * from gannouncement")
+        stream = db.execute("select branch from student where id = :id", id = session["uid"])
+        stream = stream[0]["branch"]
+        myAnnouncements = []
+        name = db.execute("select name from student where id = :id", id = session["uid"])
+        name = name[0]["name"]
+        for i in announcements:
+            if i["stream"] == stream:
+                temp = db.execute("select designation from staff where id = :id", id= i["sid"])
+                temp = temp[0]
+                i["desig"] = temp["designation"]
+                myAnnouncements.append(i)
+        return render_template("staff_page.html", id = session["uid"][:2], announcements = myAnnouncements, name = name)
 
 @app.route("/course")
 @loggedin
@@ -117,29 +157,29 @@ def logout():
         return render_template("logout.html")
     else:
         session.clear()
-        return redirect("/")
+        return redirect(url_for("index"))
     
 @app.route("/logout2")
 @loggedin
 def logout2():
     session.clear()
-    return redirect("/")
+    return redirect(url_for("index"))
 
 @app.route("/delannounce", methods = ["GET", "POST"])
 @teacher_login
 def delannounce():
     if request.method == "POST":
         aid = request.args.get("id")
-        #db.execute("delete from announcement where id= :id", id = aid)
-        return redirect("/home")
+        db.execute("delete from announcement where id= :id", id = aid)
+        return redirect(url_for("home"))
     
 @app.route("/delschedule", methods = ["GET", "POST"])
 @teacher_login
 def delschedule():
     if request.method == "POST":
         aid = request.args.get("id")
-        #db.execute("delete from schedule where id= :id", id = aid)
-        return redirect("/home")
+        db.execute("delete from schedule where id= :id", id = aid)
+        return redirect(url_for("home"))
     
 @app.route("/delmaterial", methods = ["GET", "POST"])
 @teacher_login
@@ -147,7 +187,14 @@ def delmaterial():
     if request.method == "POST":
         aid = request.args.get("id")
         db.execute("delete from cmaterial where id= :id", id = aid)
-        return redirect("/home")
+        return redirect(url_for("home"))
+
+@app.route("/delgannounce", methods = ["POST"])
+@staff_login
+def delgannounce():
+    aid = request.args.get("id")
+    db.execute("delete from gannouncement where id = :id", id = aid)
+    return redirect(url_for("staffhome"))
 
 @app.route("/cannouncements", methods = ["GET", "POST"])
 @teacher_login
@@ -159,10 +206,23 @@ def cannouncemennts():
         subjects = []
         for i in temp:
             sub = db.execute("select * from course where id = :id", id = i)
-            subjects.append(sub[0])
+            subjects.append([sub[0], i])
         #print(subjects)
-        print(teacher)
+        #print(teacher)
         return render_template("cannouncements.html", subjects = subjects, name = teacher["name"])
+    else:
+        subject = request.form.get("subject")
+        text = request.form.get("text")
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        subs = db.execute("select subject from teacher where reg_id = :id", id = session["uid"])
+        subject = subject.split(" ")
+        cid = subject[-1]
+        name= ""
+        for i in range(len(subject) - 1):
+            name += subject[i]
+        db.execute("insert into announcement(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
+        return redirect(url_for("home"))
 
 
 @app.route("/schedule", methods = ["GET", "POST"])
@@ -172,13 +232,28 @@ def schedule():
         teacher = db.execute("select * from teacher where reg_id = :id", id = session["uid"])
         teacher = teacher[0]
         temp = teacher["subject"].split(",")
+        #print(temp)
         subjects = []
         for i in temp:
             sub = db.execute("select * from course where id = :id", id = i)
-            subjects.append(sub[0])
+            subjects.append([sub[0], i])
         #print(subjects)
-        print(teacher)
+        #print(teacher)
         return render_template("schedule.html", subjects = subjects, name = teacher["name"])
+    else:
+        subject = request.form.get("subject")
+        text = request.form.get("text")
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        subs = db.execute("select subject from teacher where reg_id = :id", id = session["uid"])
+        subject = subject.split(" ")
+        #print(subject)
+        cid = subject[-1]
+        name= ""
+        for i in range(len(subject) - 1):
+            name += subject[i]
+        db.execute("insert into schedule(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
+        return redirect(url_for("home"))
 
 @app.route("/cmaterial", methods = ["GET", "POST"])
 @teacher_login
@@ -190,7 +265,32 @@ def cmaterial():
         subjects = []
         for i in temp:
             sub = db.execute("select * from course where id = :id", id = i)
-            subjects.append(sub[0])
+            subjects.append([sub[0], i])
         #print(subjects)
-        print(teacher)
+        #print(teacher)
         return render_template("cmaterial.html", subjects = subjects, name = teacher["name"])
+    else:
+        subject = request.form.get("subject")
+        text = request.form.get("text")
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        subs = db.execute("select subject from teacher where reg_id = :id", id = session["uid"])
+        subject = subject.split(" ")
+        cid = subject[-1]
+        name= ""
+        for i in range(len(subject) - 1):
+            name += subject[i]
+        db.execute("insert into cmaterial(tid, subject, cid, upper, lower, info) values(:tid, :sub, :cid, :upper, :lower, :info)", tid = session["uid"], sub = name, cid= cid, upper = upper, lower = lower, info = text)
+        return redirect(url_for("home"))
+
+@app.route("/gannouncement", methods = ["GET", "POST"])
+@staff_login
+def gannouncement():
+    if request.method == "GET":
+        return render_template("staff_form.html")
+    else:
+        year = request.form.get("year")
+        branch = request.form.get("branch")
+        text = request.form.get("text")
+        db.execute("insert into gannouncement(sid, info, year, stream) values(:sid, :info, :year, :stream)", sid = session["uid"], info = text, year = year, stream = branch)
+        return redirect(url_for("staffhome"))

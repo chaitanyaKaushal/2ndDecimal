@@ -35,41 +35,41 @@ c = conn.cursor()
 # )
 # """)
 
-# c.execute(""" create table announcement(
-#     id TEXT primary key,
-#     tid TEXT,
-#     subject TEXT,
-#     cid TEXT,
-#     upper TEXT,
-#     lower TEXT,
-#     info TEXT
-# )
+c.execute(""" create table announcement(
+    id INTEGER primary key AUTOINCREMENT,
+    tid TEXT,
+    subject TEXT,
+    cid TEXT,
+    upper integer,
+    lower integer,
+    info TEXT
+)
 
-# """)
+ """)
 
-# c.execute(""" create table schedule(
-#     id TEXT primary key,
-#     tid TEXT,
-#     subject TEXT,
-#     cid TEXT,
-#     upper TEXT,
-#     lower TEXT,
-#     info TEXT
-# )
+c.execute(""" create table schedule(
+    id INTEGER primary key AUTOINCREMENT,
+    tid TEXT,
+    subject TEXT,
+    cid TEXT,
+    upper integer,
+    lower integer,
+    info TEXT
+)
 
-# """)
+""")
 
-# c.execute(""" create table cmaterial(
-#     id TEXT primary key,
-#     tid TEXT,
-#     subject TEXT,
-#     cid TEXT,
-#     upper TEXT,
-#     lower TEXT,
-#     info TEXT
-# )
+c.execute(""" create table cmaterial(
+    id INTEGER primary key AUTOINCREMENT,
+    tid TEXT,
+    subject TEXT,
+    cid TEXT,
+    upper integer,
+    lower integers,
+    info TEXT
+)
 
-# """)
+""")
 
 # c.execute(""" create table staff(
 #     id TEXT primary key,
@@ -81,8 +81,8 @@ c = conn.cursor()
 
 # """)
 
-# c.execute(""" create table generalAnnouncement(
-#     id TEXT primary key,
+# c.execute(""" create table gannouncement(
+#     id Integer primary key autoincrement,
 #     sid TEXT,
 #     info TEXT,
 #     year TEXT,

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Course_page</title> 
+    <link rel="stylesheet" type="text/css" href="../static/css/staff_page_css.css"> 
+    </head>
+<body>
+  
+    <nav>
+        {% if id == "su"  %}
+            <ul>
+                <li><a class="active" href="/home">Home</a></li>
+                <li><a class="active" href="/staffhome">General Announcements</a></li>
+                <div class="logout_container">
+                    <li><a href="#about">Welcome, {{name}}</a></li>
+                    <li><a href="/logout2">Log out</a></li>
+                </div>
+            </ul>
+        {% else %}
+            {% if id == "te" %}
+                <ul>
+                    <li><a class="active" href="/home">Home</a></li>
+                    <li><a href="/cannouncements">Class Announcements</a></li>
+                    <li><a href="/schedule">Schedule</a></li>
+                    <li><a href="/cmaterial">Course Material</a></li>
+                    <li><a href="/staffhome">General Announcements</a></li>
+                    <div class="logout_container">
+                        <li><a href="#about">Welcome, {{name}}</a></li>
+                        <li><a href="/logout2">Log out</a></li>
+                    </div>
+                </ul>
+            {% else %}
+                <ul>
+                    <li><a class="active" href="/staffhome">Home</a></li>
+                    <li><a class="active" href="/gannouncement">Announcements</a></li>
+                    <div class="logout_container">
+                        <li><a href="#about">Welcome, {{name}}</a></li>
+                        <li><a href="/logout2">Log out</a></li>
+                    </div>
+                </ul>
+            {% endif %}
+        {% endif %}
+    </nav>
+    
+
+    <div class = "head">
+        <div class="op1">Announcements</div>
+    </div>
+
+ <div class = "outline">  
+    <div class="inline1" style = "display:inline-block;">
+        {% if announcements != [] %}
+            {% for announcement in announcements %}
+                <div class="boxed">{{announcement["info"] | safe}}
+                <p class="left"> ~ {{announcement["desig"]}} </p>
+                <form action="/delgannounce?id={{announcement.id}}" method="POST">
+                    <button class="del" data-uid = {{announcement["id"]}} data-lid={{session.uid}} data-pid={{announcement["sid"]}} type="submit">Delete</button>
+                </form>
+
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="boxed">No announcements yet.</div><br>
+        {% endif %}
+    </div>
+ </div>
+<script>
+    document.querySelectorAll(".del").forEach((del)=>{
+        if(del.dataset.pid != del.dataset.lid)
+        {
+            del.style.display = "none"
+        }
+    })
+</script>
+
+
+</body>
+</html>
